@@ -1,73 +1,129 @@
-# React + TypeScript + Vite
+# Weather Dashboard 🌤️
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, interactive weather dashboard application that provides real-time weather information with an interactive map interface.
 
-Currently, two official plugins are available:
+![Weather Dashboard](screenshot.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features ✨
 
-## React Compiler
+- **Real-time Weather Data**: Get current weather conditions for any location
+- **Interactive Map Visualization**: View weather patterns with multiple map types (clouds, temperature, precipitation, wind)
+- **Location Search**: Search and switch between different cities worldwide
+- **Current Weather Display**: 
+  - Temperature and weather conditions
+  - Feels like temperature
+  - Humidity percentage
+  - Wind speed
+  - Local time
+- **Daily Weather Forecast**: View upcoming weather predictions
+- **Dark/Light Mode Toggle**: Switch between themes for comfortable viewing
+- **Responsive Design**: Optimized for all screen sizes
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+## Tech Stack 🛠️
 
-## Expanding the ESLint configuration
+- **React** - UI library
+- **TypeScript** - Type safety and better developer experience
+- **Tailwind CSS** - Utility-first CSS framework for styling
+- **Zod** - TypeScript-first schema validation
+- **Lucide React** - Beautiful, consistent icon library
+- **MapTiler** - Interactive map visualization
+- **Leaflet** - Map rendering library
+- **OpenStreetMap** - Map data provider
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Installation 📦
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/weather-dashboard.git
+cd weather-dashboard
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2. Install dependencies:
+```bash
+npm install
 ```
+
+3. Create a `.env` file in the root directory and add your API keys:
+```env
+VITE_WEATHER_API_KEY=your_weather_api_key
+VITE_MAPTILER_API_KEY=your_maptiler_api_key
+```
+
+4. Start the development server:
+```bash
+npm run dev
+```
+
+5. Open the local URL shown in your terminal (usually http://localhost:5173)
+
+## Usage 🚀
+
+1. **Select Location**: Use the dropdown to choose your city
+2. **Choose Map Type**: Select weather visualization layers (clouds, temperature, etc.)
+3. **View Details**: Check current weather conditions and metrics
+4. **Toggle Theme**: Switch between dark and light mode
+5. **Check Forecast**: View daily weather predictions
+
+## Project Structure 📁
+```
+weather-dashboard/
+├── src/
+│   ├── components/
+│   │   └── cards/
+│   ├── assets/
+│   ├── schemas/        # Zod validation schemas
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── index.css
+├── public/
+├── package.json
+├── tsconfig.json
+├── tailwind.config.js
+└── vite.config.ts
+```
+
+## Key Technologies Explained 🔍
+
+### Zod for Type Safety
+Zod is used for runtime type validation of API responses, ensuring data integrity:
+```typescript
+const weatherSchema = z.object({
+  temperature: z.number(),
+  condition: z.string(),
+  // ... more fields
+});
+```
+
+### Tailwind CSS for Styling
+Utility-first approach for rapid UI development with responsive design built-in.
+
+### Lucide React Icons
+Clean, customizable icons that match the modern UI aesthetic.
+
+### TypeScript
+Full type safety across the application, catching errors at compile time.
+
+## Available Scripts 📝
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+
+## Contributing 🤝
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License 📄
+
+This project is licensed under the MIT License.
+
+## Acknowledgments 👏
+
+- Weather data from weather API provider
+- Map tiles and visualization by MapTiler
+- Icons by Lucide React
+
+---
+
+Built with React + TypeScript + Tailwind CSS
