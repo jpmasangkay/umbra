@@ -1,0 +1,58 @@
+import { MapContainer, TileLayer, Marker, useMap, useMapEvents } from "react-leaflet";
+import { useEffect } from "react";
+import "leaflet/dist/leaflet.css";
+import type { Coordinates } from "../types";
+
+type Props = {
+    coordinates: Coordinates;
+    onMapClick: (lat: number, lon: number) => void;
+};
+
+export default function Map({ coordinates, onMapClick }: Props) {
+    const { lat, lon } = coordinates;
+
+    console.log("Rendering Map with coordinates:", coordinates);
+
+    return (
+        <div
+            className="h-125 w-full rounded-lg overflow-hidden"
+            style={{ touchAction: 'none' }}
+        >
+            <MapContainer
+                center={[lat, lon]}
+                zoom={5} 
+                style={{ width: "100%", height: "100%" }}
+                scrollWheelZoom={true}
+            >
+                <ChangeView center={[lat, lon]} />
+                <MapClick onMapClick={onMapClick} />
+                <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <Marker position={[lat, lon]} />
+            </MapContainer>
+        </div>
+    );
+}
+
+function ChangeView({ center }: { center: [number, number] }) {
+    const map = useMap();
+    
+    useEffect(() => {
+        map.setView(center);
+    }, [center, map]);
+    
+    return null;
+}
+
+function MapClick({ onMapClick }: { onMapClick: (lat: number, lon: number) => void }) {
+    useMapEvents({
+        click: (e) => {
+            const { lat, lng } = e.latlng;
+            onMapClick(lat, lng);
+        },
+    });
+
+    return null;
+}
