@@ -114,10 +114,6 @@ Full type safety across the application, catching errors at compile time.
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License 📄
-
-This project is licensed under the MIT License.
-
 ## Acknowledgments 👏
 
 - Weather data from weather API provider
