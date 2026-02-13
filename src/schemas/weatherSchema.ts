@@ -16,10 +16,10 @@ export const weatherSchema = z.object({
     dew_point: z.number(),
     uvi: z.number(),
     clouds: z.number(),
-    visibility: z.number(),
+    visibility: z.number().optional(), // <-- Made optional
     wind_speed: z.number(),
     wind_deg: z.number(),
-    wind_gust: z.number().optional(), // <-- Added .optional()
+    wind_gust: z.number().optional(),
     weather: z.array(z.object({
       id: z.number(),
       main: z.string(),
@@ -36,10 +36,10 @@ export const weatherSchema = z.object({
     humidity: z.number(),
     dew_point: z.number(),
     clouds: z.number(),
-    visibility: z.number(),
+    visibility: z.number().optional(), // <-- Made optional (THIS WAS THE BUG!)
     wind_speed: z.number(),
     wind_deg: z.number(),
-    wind_gust: z.number().optional(), // <-- Added .optional() here too
+    wind_gust: z.number().optional(),
     weather: z.array(z.object({
       id: z.number(),
       main: z.string(),
@@ -72,7 +72,7 @@ export const weatherSchema = z.object({
     dew_point: z.number(),
     wind_speed: z.number(),
     wind_deg: z.number(),
-    wind_gust: z.number().optional(), // <-- Added .optional() here too
+    wind_gust: z.number().optional(),
     weather: z.array(z.object({
       id: z.number(),
       main: z.string(),

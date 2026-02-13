@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Marker, useMap, useMapEvents } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import { useEffect } from "react";
 import "leaflet/dist/leaflet.css";
 import type { Coordinates } from "../types";
@@ -25,7 +25,7 @@ export default function Map({ coordinates, onMapClick }: Props) {
                 scrollWheelZoom={true}
             >
                 <ChangeView center={[lat, lon]} />
-                <MapClick onMapClick={onMapClick} />
+                <MapClick onMapClick={onMapClick} coords={coordinates} />
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -46,13 +46,21 @@ function ChangeView({ center }: { center: [number, number] }) {
     return null;
 }
 
-function MapClick({ onMapClick }: { onMapClick: (lat: number, lon: number) => void }) {
-    useMapEvents({
-        click: (e) => {
-            const { lat, lng } = e.latlng;
-            onMapClick(lat, lng);
-        },
-    });
+function MapClick({
+    onMapClick,
+    coords,
+}: {
+    onMapClick: (lat: number, lon: number) => void
+    coords: Coordinates
+}) {
+    const map = useMap()
+    
+    map.panTo([coords.lat, coords.lon])
 
-    return null;
+    map.on("click", (e) => {
+        const { lat, lng } = e.latlng
+        onMapClick(lat, lng)
+    })
+
+    return null
 }
