@@ -2,8 +2,6 @@
 
 A modern, interactive weather dashboard application that provides real-time weather information with an interactive map interface.
 
-![Weather Dashboard](screenshot.png)
-
 ## Features ✨
 
 - **Real-time Weather Data**: Get current weather conditions for any location
