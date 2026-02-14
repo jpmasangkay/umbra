@@ -14,6 +14,9 @@ export default function LocationDropDown({location, setLocation} : Props) {
       </SelectTrigger>
       <SelectContent position="popper" className="z-[1000]">
         <SelectGroup>
+          {location === "cityName" && (
+            <SelectItem value="cityName">Custom</SelectItem>
+          )}
           {locations.map((location) => (
             <SelectItem key={location} value={location}>
               {location}

@@ -21,7 +21,7 @@
             ))}
           </SelectGroup>
         </SelectContent>
-      </Select>
+      </Select> 
     )
   }
 
