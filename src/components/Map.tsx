@@ -1,7 +1,8 @@
 import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+import { MaptilerLayer } from "@maptiler/leaflet-maptilersdk";
 import type { Coordinates } from "../types";
 
 // Fix for default marker icons - using CDN URLs
@@ -14,11 +15,14 @@ L.Icon.Default.mergeOptions({
 });
 
 const API_KEY = import.meta.env.VITE_API_KEY
+const MAPTILES_KEY = import.meta.env.VITE_MAPTILES_API_KEY 
+
 type Props = {
     coordinates: Coordinates;
     onMapClick: (lat: number, lon: number) => void;
     mapType: string
 };
+
 export default function Map({ coordinates, onMapClick, mapType }: Props) {
     const { lat, lon } = coordinates;
     console.log("Rendering Map with coordinates:", coordinates);
@@ -35,11 +39,8 @@ export default function Map({ coordinates, onMapClick, mapType }: Props) {
             >
                 <ChangeView center={[lat, lon]} />
                 <MapClick onMapClick={onMapClick} coords={coordinates} />
-                <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                    <TileLayer 
+                <MapTileLayer />
+                <TileLayer 
                     url={`https://tile.openweathermap.org/map/${mapType}/{z}/{x}/{y}.png?appid=${API_KEY}`}
                     opacity={0.6}
                 />
@@ -48,6 +49,7 @@ export default function Map({ coordinates, onMapClick, mapType }: Props) {
         </div>
     );
 }
+
 function ChangeView({ center }: { center: [number, number] }) {
     const map = useMap();
     
@@ -57,6 +59,7 @@ function ChangeView({ center }: { center: [number, number] }) {
     
     return null;
 }
+
 function MapClick({
     onMapClick,
     coords,
@@ -66,10 +69,44 @@ function MapClick({
 }) {
     const map = useMap()
     
-    map.panTo([coords.lat, coords.lon])
-    map.on("click", (e) => {
-        const { lat, lng } = e.latlng
-        onMapClick(lat, lng)
-    })
+    useEffect(() => {
+        map.panTo([coords.lat, coords.lon])
+        
+        const handleClick = (e: L.LeafletMouseEvent) => {
+            const { lat, lng } = e.latlng
+            onMapClick(lat, lng)
+        }
+        
+        map.on("click", handleClick)
+        
+        return () => {
+            map.off("click", handleClick)
+        }
+    }, [coords.lat, coords.lon, map, onMapClick])
+    
+    return null
+}
+
+function MapTileLayer() {
+    const map = useMap()
+    const layerRef = useRef<InstanceType<typeof MaptilerLayer> | null>(null)
+    
+    useEffect(() => {
+        // Only create the layer once
+        if (!layerRef.current) {
+            layerRef.current = new MaptilerLayer({
+                style: 'basic-dark', 
+                apiKey: MAPTILES_KEY
+            })
+            layerRef.current.addTo(map)
+        }
+        
+        return () => {
+            if (layerRef.current) {
+                map.removeLayer(layerRef.current)
+                layerRef.current = null
+            }
+        }
+    }, []) 
     return null
 }
