@@ -1,21 +1,31 @@
 import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import { useEffect } from "react";
 import "leaflet/dist/leaflet.css";
+import L from "leaflet";
 import type { Coordinates } from "../types";
 
-const API_KEY = import.meta.env.VITE_API_KEY
+// Fix for default marker icons in production
+import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+delete (L.Icon.Default.prototype as any)._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconUrl: markerIcon,
+  iconRetinaUrl: markerIcon2x,
+  shadowUrl: markerShadow,
+});
+
+const API_KEY = import.meta.env.VITE_API_KEY
 type Props = {
     coordinates: Coordinates;
     onMapClick: (lat: number, lon: number) => void;
     mapType: string
 };
-
 export default function Map({ coordinates, onMapClick, mapType }: Props) {
     const { lat, lon } = coordinates;
-
     console.log("Rendering Map with coordinates:", coordinates);
-
     return (
         <div
             className="h-125 w-full rounded-lg overflow-hidden"
@@ -42,7 +52,6 @@ export default function Map({ coordinates, onMapClick, mapType }: Props) {
         </div>
     );
 }
-
 function ChangeView({ center }: { center: [number, number] }) {
     const map = useMap();
     
@@ -52,7 +61,6 @@ function ChangeView({ center }: { center: [number, number] }) {
     
     return null;
 }
-
 function MapClick({
     onMapClick,
     coords,
@@ -63,11 +71,9 @@ function MapClick({
     const map = useMap()
     
     map.panTo([coords.lat, coords.lon])
-
     map.on("click", (e) => {
         const { lat, lng } = e.latlng
         onMapClick(lat, lng)
     })
-
     return null
 }
