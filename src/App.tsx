@@ -42,10 +42,15 @@ function App() {
 
   return (
     <div className="flex flex-col gap-8 p-4">
-      {/* Wrap dropdowns in a horizontal flex container */}
       <div className="flex flex-row gap-4">
-        <LocationDropDown location={location} setLocation={handleLocationChange}/>
-        <MapTypeDropdown mapType={mapType} setMapType={setMapType}/>
+        <div className="flex gap-4">
+          <h1 className="text-2xl font-semibold">Location: </h1>
+          <LocationDropDown location={location} setLocation={handleLocationChange}/>
+        </div>
+        <div className="flex gap-4">
+          <h1 className="text-2xl font-semibold">Map Type: </h1>
+          <MapTypeDropdown mapType={mapType} setMapType={setMapType}/>
+        </div>
       </div>
       
       <Map coordinates={coordinates} onMapClick={onMapClick} mapType={mapType}/>
