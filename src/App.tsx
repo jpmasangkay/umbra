@@ -44,14 +44,14 @@ function App() {
   }
 
   return (
-    <div className="flex flex-col gap-8 px-4 sm:px-5 md:px-6 pb-4 sm:pb-6 pt-7 sm:pt-8">
-      <div className="flex flex-col sm:flex-row gap-5 sm:gap-6">
-        <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
-          <h1 className="text-xl sm:text-2xl font-semibold">Location:</h1>
+    <div className="flex flex-col gap-8 px-4 pb-4 pt-4 sm:pt-4">
+      <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2 w-full sm:w-auto">
+          <h1 className="text-lg sm:text-xl font-semibold">Location:</h1>
           <LocationSearch key={location} location={location} setLocation={handleLocationChange}/>
         </div>
-        <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
-          <h1 className="text-xl sm:text-2xl font-semibold">Map Type:</h1>
+        <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2 w-full sm:w-auto">
+          <h1 className="text-lg sm:text-xl font-semibold">Map Type:</h1>
           <MapTypeDropdown mapType={mapType} setMapType={setMapType}/>
         </div>
       </div>
