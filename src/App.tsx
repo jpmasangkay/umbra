@@ -5,7 +5,7 @@ import CurrentWeather from "./components/cards/CurrentWeather"
 import AdditionalInfo from "./components/cards/AdditionalInfo"
 import Map from "./components/Map"
 import type { Coordinates } from "./types"
-import LocationDropDown from "./components/dropdowns/LocationDropDown"
+import LocationSearch from "./components/dropdowns/LocationSearch"
 import { useQuery, keepPreviousData } from "@tanstack/react-query"
 import { getGeocode } from "./api"
 import MapTypeDropdown from "./components/dropdowns/MapTypeDropdown"
@@ -17,7 +17,7 @@ import DailySkeleton from "./components/skeletons/DailySkeleton"
 
 function App() {
   const [manualCoords, setManualCoords] = useState<Coordinates | null>(null)
-  const [location, setLocation] = useState('London')
+  const [location, setLocation] = useState('')
   const [mapType, setMapType] = useState('clouds_new')
 
   const {data: geocodeData} = useQuery({
@@ -44,14 +44,14 @@ function App() {
   }
 
   return (
-    <div className="flex flex-col gap-8 p-4">
-      <div className="flex flex-row gap-4">
-        <div className="flex gap-4">
-          <h1 className="text-2xl font-semibold">Location: </h1>
-          <LocationDropDown location={location} setLocation={handleLocationChange}/>
+    <div className="flex flex-col gap-8 px-4 sm:px-5 md:px-6 pb-4 sm:pb-6 pt-7 sm:pt-8">
+      <div className="flex flex-col sm:flex-row gap-5 sm:gap-6">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
+          <h1 className="text-xl sm:text-2xl font-semibold">Location:</h1>
+          <LocationSearch key={location} location={location} setLocation={handleLocationChange}/>
         </div>
-        <div className="flex gap-4">
-          <h1 className="text-2xl font-semibold">Map Type: </h1>
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
+          <h1 className="text-xl sm:text-2xl font-semibold">Map Type:</h1>
           <MapTypeDropdown mapType={mapType} setMapType={setMapType}/>
         </div>
       </div>
