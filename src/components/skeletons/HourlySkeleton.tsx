@@ -1,6 +1,11 @@
+/**
+ * HourlySkeleton – loading placeholder for the HourlyForecast card.
+ * Renders 24 placeholder items in a horizontal scroll container.
+ */
 import Card from '../cards/Card'
 import { Skeleton } from '../ui/skeleton'
 
+/** Number of placeholder hourly items to render */
 const HOURLY_ITEM_COUNT = 24
 
 export default function HourlySkeleton() {

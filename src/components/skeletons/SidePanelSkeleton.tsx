@@ -1,6 +1,12 @@
+/**
+ * SidePanelSkeleton – loading placeholder for the air pollution SidePanel.
+ * Mirrors the heading, AQI value, AQI label, and 8 pollutant cards
+ * (each with a slider, min/max, and quality-level pills).
+ */
 import Card from "../cards/Card";
 import { Skeleton } from "../ui/skeleton";
 
+/** Number of pollutant card skeletons to render */
 const CARD_COUNT = 8;
 
 export default function SidePanelSkeleton() {

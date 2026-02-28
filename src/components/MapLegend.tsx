@@ -1,3 +1,8 @@
+/**
+ * MapLegend – colour-gradient legend overlaid in the top-right corner
+ * of the map.  Shows the min/max values and unit for the currently
+ * selected weather layer (clouds, precipitation, wind, pressure, temp).
+ */
 type Props = {
     mapType: string
 }
@@ -24,6 +29,11 @@ const dataGradiantStops = data.stops.map(stop => `${stop.color} ${(stop.value / 
   ) 
 }
 
+/**
+ * Colour-stop data for each OpenWeatherMap tile layer.
+ * Each entry defines title, unit and an array of colour stops
+ * used to build the CSS linear-gradient for the legend bar.
+ */
 const mapTypeData: Record<
   string,
   { title: string; unit: string; stops: ColorStop[] }
@@ -106,6 +116,7 @@ const mapTypeData: Record<
   },
 };
 
+/** A single point in the legend’s colour gradient */
 interface ColorStop {
     value: number;
     color: string;

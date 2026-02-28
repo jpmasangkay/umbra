@@ -1,3 +1,8 @@
+/**
+ * CurrentSkeleton – loading placeholder that mirrors the layout of
+ * CurrentWeather.tsx.  Shown inside a <Suspense> boundary while the
+ * weather API call is in flight.
+ */
 import Card from '../cards/Card'
 import { Skeleton } from '../ui/skeleton'
 

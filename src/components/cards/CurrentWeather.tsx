@@ -1,3 +1,13 @@
+/**
+ * CurrentWeather – displays the headline weather information.
+ *
+ * Shows the current temperature, weather icon + description,
+ * local time (in the location's timezone), and quick stats
+ * for "Feels Like", humidity and wind speed.
+ *
+ * Data is fetched with useSuspenseQuery so the nearest <Suspense>
+ * boundary renders a skeleton while loading.
+ */
 import { getWeather } from '../../api'
 import type { Coordinates } from '../../types'
 import WeatherIcon from '../WeatherIcon'

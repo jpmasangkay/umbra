@@ -1,3 +1,9 @@
+/**
+ * Zod schema for the OpenWeatherMap Air Pollution API response.
+ *
+ * Validates the coordinate echo, the AQI index (1–5) and the
+ * individual pollutant component concentrations (μg/m³).
+ */
 import z from "zod";
 
 export const AirPollutionSchema = z.object({

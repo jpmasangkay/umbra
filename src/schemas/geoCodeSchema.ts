@@ -1,3 +1,10 @@
+/**
+ * Zod schema for a single result from the OpenWeatherMap
+ * Geocoding API (geo/1.0/direct).
+ *
+ * Fields like `local_names` and `state` are optional because
+ * the API only returns them when data is available.
+ */
 import { z } from "zod";
 
 export const locationSchema = z.object({

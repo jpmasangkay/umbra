@@ -1,3 +1,11 @@
+/**
+ * MapTypeDropdown – lets the user choose which weather layer is
+ * overlaid on the map (clouds, precipitation, wind, pressure, temperature).
+ *
+ * Uses the shadcn Select component with a popper dropdown.
+ * The raw API slug (e.g. "clouds_new") is stored as the value;
+ * a capitalised label is derived for display.
+ */
 import type { Dispatch, SetStateAction } from 'react'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 
@@ -25,6 +33,7 @@ export default function MapTypeDropdown({ mapType, setMapType }: Props) {
   )
 }
 
+/** Available OpenWeatherMap tile layer slugs */
 const types = [
   'clouds_new',
   'precipitation_new',

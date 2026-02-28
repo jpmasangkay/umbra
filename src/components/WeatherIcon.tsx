@@ -1,6 +1,12 @@
+/**
+ * WeatherIcon – renders a weather condition icon from the
+ * OpenWeatherMap icon set. The `src` prop is the icon code
+ * returned by the API (e.g. "01d" for clear sky day).
+ */
 import clsx from "clsx"
 
 type Props = {
+  /** Icon code from the OWM API (e.g. "01d", "10n") */
   src: string
   className?: string
 }

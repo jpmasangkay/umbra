@@ -1,3 +1,10 @@
+/**
+ * AdditionalInfo – secondary weather data not shown in CurrentWeather.
+ *
+ * Displays cloudiness, UV index, wind direction (rotated icon),
+ * atmospheric pressure, sunrise and sunset times.  Each row has
+ * a lucide icon, a label and a formatted value.
+ */
 import { useSuspenseQuery } from '@tanstack/react-query'
 import Card from './Card'
 import { getWeather } from '../../api'
@@ -34,6 +41,7 @@ export default function AdditionalInfo({coordinates}: Props) {
   )
 }
 
+/**\n * FormatComponent \u2013 renders a value differently depending on the field:\n *  - sunrise/sunset \u2192 locale-formatted time string\n *  - wind_deg       \u2192 rotated Wind icon\n *  - everything else\u2192 raw number\n */
 function FormatComponent({field, value}: {field: string, value: number}) {
     if(field === 'sunrise' || field === 'sunset') {
         return new Intl.DateTimeFormat("en-PH", {
@@ -49,6 +57,7 @@ function FormatComponent({field, value}: {field: string, value: number}) {
     return value
 }
 
+/** Configuration for each row displayed in the card (label, API field key, icon) */
 const rows = [
     {
       label: "Cloudiness (%)",

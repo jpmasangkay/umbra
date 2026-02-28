@@ -1,3 +1,15 @@
+/**
+ * SidePanel – fixed right-hand panel displaying air pollution data.
+ *
+ * On desktop (lg+) the panel is always visible.  On mobile it slides
+ * in/out, controlled by the `open` prop and the ArrowLeft close button.
+ *
+ * Inside, the AirPollution sub-component fetches data from the
+ * OpenWeatherMap Air Pollution API and renders:
+ *  - The overall AQI value with an informational tooltip.
+ *  - A card for each pollutant showing concentration, a slider,
+ *    min/max labels, and colour-coded quality-level pills.
+ */
 import { getAirPollution } from "@/api";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Suspense } from "react";
@@ -108,6 +120,7 @@ function AirPollution({ coordinates, onClose }: Props & { onClose: () => void })
   );
 }
 
+/** Human-readable names for each pollutant abbreviation, shown in tooltips */
 const pollutantNameMapping: Record<string, string> = {
   so2: "Sulfur dioxide",
   no2: "Nitrogen dioxide",
@@ -119,6 +132,10 @@ const pollutantNameMapping: Record<string, string> = {
   nh3: "Ammonia",
 };
 
+/**
+ * Threshold ranges (μg/m³) for each pollutant.
+ * Used to position the slider and determine the quality level.
+ */
 const pollutantRanges: Record<string, { good: number; fair: number; moderate: number; poor: number; veryPoor: number }> = {
   so2:   { good: 20,   fair: 80,   moderate: 250,   poor: 350,   veryPoor: 500 },
   no2:   { good: 40,   fair: 70,   moderate: 150,   poor: 200,   veryPoor: 400 },
@@ -130,8 +147,10 @@ const pollutantRanges: Record<string, { good: number; fair: number; moderate: nu
   nh3:   { good: 200,  fair: 400,  moderate: 800,   poor: 1200,  veryPoor: 2000 },
 };
 
+/** Ordered quality tier labels (matches the EU AQI scale) */
 const qualityLevels = ["Good", "Fair", "Moderate", "Poor", "Very Poor"] as const;
 
+/** Tailwind background colour class for each quality tier */
 const qualityColors: Record<string, string> = {
   "Good": "bg-green-500",
   "Fair": "bg-yellow-500",
@@ -140,6 +159,7 @@ const qualityColors: Record<string, string> = {
   "Very Poor": "bg-purple-500",
 };
 
+/** Determine which quality tier a pollutant value falls into. */
 function getQualityLevel(key: string, value: number): string {
   const range = pollutantRanges[key];
   if (!range) return "Good";

@@ -1,3 +1,9 @@
+/**
+ * HourlyForecast – horizontally scrollable list of 48-hour forecast entries.
+ *
+ * Each entry shows the time, a weather icon from OWM, and the temperature.
+ * Wraps in a Card with overflow-x-auto for the scroll behaviour.
+ */
 import { getWeather } from '../../api'
 import type { Coordinates } from '../../types'
 import WeatherIcon from '../WeatherIcon'

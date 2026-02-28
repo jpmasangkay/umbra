@@ -1,3 +1,13 @@
+/**
+ * App – root component that orchestrates the entire weather dashboard.
+ *
+ * Responsibilities:
+ *  - Holds the top-level state (selected location, map type, side-panel toggle).
+ *  - Resolves the active coordinates from either a map click or a geocode search.
+ *  - Renders the responsive header (location search, map type picker, theme & menu).
+ *  - Lays out the main content grid with Suspense boundaries + skeleton fallbacks.
+ *  - Renders the air-pollution SidePanel (always visible on desktop, slide-in on mobile).
+ */
 import DailyForecast from "./components/cards/DailyForecast"
 import { useState, useMemo, Suspense } from "react"
 import HourlyForecast from "./components/cards/HourlyForecast"
@@ -19,11 +29,17 @@ import { Menu } from "lucide-react"
 import ThemeToggle from "./components/ThemeToggle"
 
 function App() {
+  // Coordinates set by clicking on the map (takes priority over geocode)
   const [manualCoords, setManualCoords] = useState<Coordinates | null>(null)
+  // Text location typed into the search bar
   const [location, setLocation] = useState('')
+  // Currently selected weather overlay layer for the map
   const [mapType, setMapType] = useState('clouds_new')
+  // Controls the mobile slide-in side panel visibility
   const [sidePanelOpen, setSidePanelOpen] = useState(false)
 
+  // Convert the text location to coordinates via the Geocoding API.
+  // keepPreviousData avoids a flash of empty state when the query key changes.
   const {data: geocodeData} = useQuery({
     queryKey: ['geocode', location],
     queryFn: () => getGeocode(location),
@@ -31,17 +47,21 @@ function App() {
     placeholderData: keepPreviousData
   }) as { data: Array<{name: string; lat: number; lon: number; country: string}> | undefined }
   
+  // Derive the active coordinates with a clear priority:
+  // 1. Manual map click  2. Geocode result  3. Default (London)
   const coordinates = useMemo(() => {
     if (manualCoords) return manualCoords
     if (geocodeData?.[0]) return { lat: geocodeData[0].lat, lon: geocodeData[0].lon }
-    return { lat: 51.5074, lon: -0.1278 }
+    return { lat: 51.5074, lon: -0.1278 } // Fallback: London
   }, [manualCoords, geocodeData])
   
+  /** When the user clicks the map, store those coordinates and reset the text input. */
   const onMapClick = (lat: number, lon: number) => {
     setManualCoords({ lat, lon })
     setLocation('cityName')
   }
   
+  /** When the user types a new location, clear the manual coords so geocode takes over. */
   const handleLocationChange = (value: string | ((prev: string) => string)) => {
     setManualCoords(null)
     setLocation(value)

@@ -1,6 +1,11 @@
+/**
+ * DailySkeleton – loading placeholder for the DailyForecast card.
+ * Renders 7 rows matching the daily forecast layout.
+ */
 import Card from '../cards/Card'
 import { Skeleton } from '../ui/skeleton'
 
+/** Number of placeholder daily rows (one per day) */
 const DAILY_ROW_COUNT = 7
 
 export default function DailySkeleton() {

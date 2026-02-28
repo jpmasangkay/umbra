@@ -1,8 +1,16 @@
+/**
+ * ThemeToggle – button that switches between dark and light mode.
+ *
+ * Persists the chosen theme in localStorage and falls back to the
+ * system’s prefers-color-scheme on first visit.  Toggling adds / removes
+ * the "dark" class on <html>, which Tailwind’s dark variant relies on.
+ */
 import { useState, useEffect } from "react";
 import { Sun, Moon } from "lucide-react";
 import { Button } from "./ui/button";
 
 export default function ThemeToggle() {
+  // Initialise from localStorage → system preference → default dark
   const [dark, setDark] = useState(() => {
     if (typeof window === "undefined") return true;
     const stored = localStorage.getItem("theme");

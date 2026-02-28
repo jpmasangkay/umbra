@@ -1,3 +1,13 @@
+/**
+ * Zod schema for the OpenWeatherMap OneCall 3.0 response.
+ *
+ * Validates the shape of `current`, `hourly[]` and `daily[]` objects.
+ * Some fields (visibility, wind_gust, rain) are marked optional because
+ * the API omits them when not applicable.
+ *
+ * The inferred TypeScript type `WeatherData` is exported for use
+ * throughout the app.
+ */
 import { z } from "zod";
 
 export const weatherSchema = z.object({

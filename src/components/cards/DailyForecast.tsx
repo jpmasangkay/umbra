@@ -1,3 +1,9 @@
+/**
+ * DailyForecast – shows the 7-day weather outlook.
+ *
+ * Each row displays the weekday abbreviation, weather icon,
+ * day temperature, and the min/max range for that day.
+ */
 import { getWeather } from '../../api'
 import type { Coordinates } from '../../types'
 import WeatherIcon from '../WeatherIcon'
