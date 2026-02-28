@@ -4,22 +4,35 @@ import { Suspense } from "react";
 import type { Coordinates } from "@/types";
 import Card from "./cards/Card";
 import { Slider } from "./ui/slider";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
+import { Info, ArrowLeft } from "lucide-react";
+import SidePanelSkeleton from "./skeletons/SidePanelSkeleton";
+
+type SidePanelProps = {
+  coordinates: Coordinates;
+  open: boolean;
+  onClose: () => void;
+};
 
 type Props = {
   coordinates: Coordinates;
 };
 
-export default function SidePanel({ coordinates }: Props) {
+export default function SidePanel({ coordinates, open, onClose }: SidePanelProps) {
   return (
-    <div className="fixed top-0 right-0 z-1001 h-screen w-90 bg-sidebar shadow-md py-8 px-4 overflow-y-scroll">
-      <Suspense fallback={null}>
-        <AirPollution coordinates={coordinates} />
+    <div
+      className={`fixed top-0 right-0 z-1001 h-screen w-90 bg-sidebar shadow-md py-8 px-4 overflow-y-scroll transition-transform duration-300 lg:translate-x-0 ${
+        open ? "translate-x-0" : "translate-x-full"
+      }`}
+    >
+      <Suspense fallback={<SidePanelSkeleton />}>
+        <AirPollution coordinates={coordinates} onClose={onClose} />
       </Suspense>
     </div>
   );
 }
 
-function AirPollution({ coordinates }: Props) {
+function AirPollution({ coordinates, onClose }: Props & { onClose: () => void }) {
   const { data } = useSuspenseQuery({
     queryKey: ["pollution", coordinates.lat, coordinates.lon],
     queryFn: () => getAirPollution(coordinates),
@@ -27,9 +40,30 @@ function AirPollution({ coordinates }: Props) {
 
   return (
     <div className="flex flex-col gap-4 p-1">
-      <h1 className="text-2xl font-semibold">Air Pollution</h1>
+      <div className="flex items-center gap-3">
+        <button
+          onClick={onClose}
+          className="p-1.5 rounded-md hover:bg-accent transition-colors cursor-pointer lg:hidden"
+          aria-label="Close side panel"
+        >
+          <ArrowLeft className="size-5" />
+        </button>
+        <h1 className="text-2xl font-semibold">Air Pollution</h1>
+      </div>
       <h1 className="text-5xl font-semibold">{data.list[0].main.aqi}</h1>
-      <h1 className="text-2xl font-semibold">AQI</h1>
+      <div className="flex items-center gap-2">
+        <h1 className="text-2xl font-semibold">AQI</h1>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Info className="h-4 w-4 text-muted-foreground" />
+            </TooltipTrigger>
+            <TooltipContent className="z-2000">
+              <p className="max-w-xs">Air Quality Index. Possible values: 1, 2, 3, 4, 5. Where 1 = Good, 2 = Fair, 3 = Moderate, 4 = Poor, 5 = Very Poor.</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
       {Object.entries(data.list[0]?.components).map(([key, value]) => {
         const range = pollutantRanges[key];
         const max = range ? range.poor : 500;
@@ -37,7 +71,19 @@ function AirPollution({ coordinates }: Props) {
         return (
           <Card key={key} title={""} childrenClassName="flex flex-col gap-2" className="text-lg font-medium hover:scale-105 transition-transform duration-300 gap-0!">
             <div className="flex justify-between">
-              <span className="text-lg font-bold capitalize">{key}</span>
+              <div className="flex items-center gap-2">
+                <span className="text-lg font-bold capitalize">{key}</span>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Info className="h-3.5 w-3.5 text-muted-foreground" />
+                    </TooltipTrigger>
+                    <TooltipContent className="z-2000">
+                      <p>{pollutantNameMapping[key] ?? key}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
               <span className="text-lg font-semibold">{value} μg/m³</span>
             </div>
             <Slider disabled min={0} max={max} value={[Math.min(value, max)]} />
@@ -56,11 +102,22 @@ function AirPollution({ coordinates }: Props) {
               ))}
             </div>
           </Card>
-        )     
-        })}
+        )
+      })}
     </div>
   );
 }
+
+const pollutantNameMapping: Record<string, string> = {
+  so2: "Sulfur dioxide",
+  no2: "Nitrogen dioxide",
+  pm10: "Particulate matter 10",
+  pm2_5: "Fine particles matter",
+  o3: "Ozone",
+  co: "Carbon monoxide",
+  no: "Nitrogen monoxide",
+  nh3: "Ammonia",
+};
 
 const pollutantRanges: Record<string, { good: number; fair: number; moderate: number; poor: number; veryPoor: number }> = {
   so2:   { good: 20,   fair: 80,   moderate: 250,   poor: 350,   veryPoor: 500 },
