@@ -51,7 +51,7 @@ function AirPollution({ coordinates, onClose }: Props & { onClose: () => void })
   });
 
   return (
-    <div className="flex flex-col gap-4 p-1">
+    <div className="flex flex-col gap-4 p-1 animate-[fade-in_2s_ease-out_forwards]">
       <div className="flex items-center gap-3">
         <button
           onClick={onClose}
