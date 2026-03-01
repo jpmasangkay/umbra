@@ -12,4 +12,17 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-query': ['@tanstack/react-query'],
+          leaflet: ['leaflet', 'react-leaflet'],
+          maptiler: ['@maptiler/leaflet-maptilersdk'],
+          radix: ['radix-ui'],
+          zod: ['zod'],
+        },
+      },
+    },
+  },
 })

@@ -9,11 +9,11 @@
  *  - Renders the air-pollution SidePanel (always visible on desktop, slide-in on mobile).
  */
 import DailyForecast from "./components/cards/DailyForecast"
-import { useState, useMemo, Suspense } from "react"
+import { useState, useMemo, Suspense, lazy } from "react"
 import HourlyForecast from "./components/cards/HourlyForecast"
 import CurrentWeather from "./components/cards/CurrentWeather"
 import AdditionalInfo from "./components/cards/AdditionalInfo"
-import Map from "./components/Map"
+const Map = lazy(() => import("./components/Map"))
 import type { Coordinates } from "./types"
 import LocationSearch from "./components/dropdowns/LocationSearch"
 import { useQuery, keepPreviousData } from "@tanstack/react-query"
@@ -104,7 +104,9 @@ function App() {
         </div>
       
         <div className="relative">
-          <Map coordinates={coordinates} onMapClick={onMapClick} mapType={mapType}/>
+          <Suspense fallback={<div className="h-[400px] w-full rounded-lg bg-muted animate-pulse" />}>
+            <Map coordinates={coordinates} onMapClick={onMapClick} mapType={mapType}/>
+          </Suspense>
           <MapLegend mapType={mapType} />
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
