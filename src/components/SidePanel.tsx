@@ -105,13 +105,13 @@ function AirPollution({ coordinates, onClose }: Props & { onClose: () => void })
               <span>0</span>
               <span>{max}</span>
             </div>
-            <div className="flex justify-between text-xs gap-1">
+            <div className="flex items-center gap-1">
               {qualityLevels.map((level) => (
                 <span
                   key={level}
-                  className={`px-1.5 py-0.5 rounded-md text-center flex-1 transition-colors ${quality === level ? qualityColors[level] + " text-card" : "text-muted-foreground bg-accent/50"}`}
+                  className={`py-1 rounded-md text-center flex-1 text-[10px] font-medium leading-none whitespace-nowrap transition-colors ${quality === level ? qualityColors[level] + " text-white" : "text-muted-foreground bg-accent/50"}`}
                 >
-                  {level}
+                  {qualityLabels[level]}
                 </span>
               ))}
             </div>
@@ -151,6 +151,15 @@ const pollutantRanges: Record<string, { good: number; fair: number; moderate: nu
 
 /** Ordered quality tier labels (matches the EU AQI scale) */
 const qualityLevels = ["Good", "Fair", "Moderate", "Poor", "Very Poor"] as const;
+
+/** Short display labels for the pills so they don't wrap */
+const qualityLabels: Record<string, string> = {
+  "Good": "Good",
+  "Fair": "Fair",
+  "Moderate": "Med",
+  "Poor": "Poor",
+  "Very Poor": "V.Poor",
+};
 
 /** Tailwind background colour class for each quality tier */
 const qualityColors: Record<string, string> = {
