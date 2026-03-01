@@ -73,15 +73,7 @@ function App() {
         {/* Header bar */}
         <header className="flex flex-col gap-3">
           <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2 w-full sm:w-auto">
-              <label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Location</label>
-              <LocationSearch key={location} location={location} setLocation={handleLocationChange}/>
-            </div>
-            <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2 w-full sm:w-auto">
-              <label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Map Type</label>
-              <MapTypeDropdown mapType={mapType} setMapType={setMapType}/>
-            </div>
-            <div className="flex items-center gap-1 sm:ml-auto">
+            <div className="flex items-center gap-1 self-end sm:self-auto sm:order-last sm:ml-auto">
               <ThemeToggle />
               <button
                 onClick={() => setSidePanelOpen(true)}
@@ -91,12 +83,20 @@ function App() {
                 <Menu className="size-5" />
               </button>
             </div>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2 w-full sm:w-auto">
+              <label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Location</label>
+              <LocationSearch key={location} location={location} setLocation={handleLocationChange}/>
+            </div>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2 w-full sm:w-auto">
+              <label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Map Type</label>
+              <MapTypeDropdown mapType={mapType} setMapType={setMapType}/>
+            </div>
           </div>
         </header>
       
         {/* Map */}
         <div className="relative rounded-2xl overflow-hidden border border-border/50 shadow-sm">
-          <Suspense fallback={<div className="h-[400px] w-full bg-muted animate-pulse" />}>
+          <Suspense fallback={<div className="h-100 w-full bg-muted animate-pulse" />}>
             <Map coordinates={coordinates} onMapClick={onMapClick} mapType={mapType}/>
           </Suspense>
           <MapLegend mapType={mapType} />
