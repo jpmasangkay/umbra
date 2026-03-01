@@ -25,7 +25,7 @@ import HourlySkeleton from "./components/skeletons/HourlySkeleton"
 import AdditionalInfoSkeleton from "./components/skeletons/AdditionalInfoSkeleton"
 import DailySkeleton from "./components/skeletons/DailySkeleton"
 import SidePanel from "./components/SidePanel"
-import { Menu, CloudSun } from "lucide-react"
+import { Menu } from "lucide-react"
 import ThemeToggle from "./components/ThemeToggle"
 
 function App() {
@@ -72,10 +72,6 @@ function App() {
       <div className="flex flex-col gap-5 px-4 pb-6 pt-4 lg:mr-90">
         {/* Header bar */}
         <header className="flex flex-col gap-3">
-          <div className="flex items-center gap-2">
-            <CloudSun className="size-6 text-foreground" />
-            <h1 className="text-xl font-bold tracking-tight text-foreground">Umbra</h1>
-          </div>
           <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
             <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2 w-full sm:w-auto">
               <label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Location</label>
