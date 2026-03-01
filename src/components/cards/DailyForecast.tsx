@@ -21,18 +21,22 @@ export default function DailyForecast({coordinates}: Props) {
   })
 
   return (
-    <Card title="Daily Forecast" childrenClassName="flex flex-col gap-4">
-      {data?.daily.map((day) => (
-        <div key={day.dt} className="flex justify-between items-center">  
-          <p className="w-9">
+    <Card title="Daily Forecast" childrenClassName="flex flex-col gap-0">
+      {data?.daily.map((day, index) => (
+        <div key={day.dt} className={`flex justify-between items-center py-3 ${index !== data.daily.length - 1 ? 'border-b border-border/40' : ''}`}>  
+          <p className="w-10 text-sm font-medium text-card-foreground">
             {new Date(day.dt * 1000).toLocaleDateString(undefined, {
                 weekday: 'short'
               })}
             </p>
             <WeatherIcon src={day.weather[0].icon} /> 
-            <p className="w-14 text-right">{Math.round(day.temp.day)}°C</p>
-            <p className="w-14 text-right text-gray-500/75">{Math.round(day.temp.min)}°C</p>
-            <p className="w-14 text-right text-gray-500/75">{Math.round(day.temp.max)}°C</p>
+            <p className="w-14 text-right text-sm font-semibold text-card-foreground">{Math.round(day.temp.day)}°C</p>
+            <div className="flex items-center gap-3 w-32 justify-end">
+              <span className="text-xs text-muted-foreground">L</span>
+              <p className="w-10 text-right text-sm text-muted-foreground tabular-nums">{Math.round(day.temp.min)}°C</p>
+              <span className="text-xs text-muted-foreground">H</span>
+              <p className="w-10 text-right text-sm text-muted-foreground tabular-nums">{Math.round(day.temp.max)}°C</p>
+            </div>
           </div>
         ))}
     </Card>

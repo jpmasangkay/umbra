@@ -22,14 +22,16 @@ export default function AdditionalInfo({coordinates}: Props) {
   })
   
   return (
-    <Card title="Additional Info" childrenClassName="flex flex-col gap-8">
-      {rows.map(({label, value, Icon}) => (
-        <div key={value} className="flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <Icon className="size-8 text-white" />
-            <span className="text-gray-500">{label}</span>
+    <Card title="Additional Info" childrenClassName="flex flex-col gap-0">
+      {rows.map(({label, value, Icon}, index) => (
+        <div key={value} className={`flex justify-between items-center py-3.5 ${index !== rows.length - 1 ? 'border-b border-border/40' : ''}`}>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center justify-center size-9 rounded-lg bg-accent">
+              <Icon className="size-5 text-accent-foreground" />
+            </div>
+            <span className="text-sm text-muted-foreground">{label}</span>
           </div>
-          <span className="font-semibold">
+          <span className="text-sm font-semibold text-card-foreground">
             <FormatComponent 
               field={value}
               value={data.current[value as keyof typeof data.current] as number} 

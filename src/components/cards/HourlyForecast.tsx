@@ -28,9 +28,9 @@ export default function HourlyForecast({coordinates}: Props) {
       {data.hourly.map(hour => (
         <div 
           key={hour.dt}
-          className="flex flex-col gap-3 items-center shrink-0 w-20"
+          className="flex flex-col gap-2 items-center shrink-0 w-20 py-3 px-2 rounded-xl bg-accent/50 hover:bg-accent transition-colors"
         >
-          <p className="whitespace-nowrap text-base">
+          <p className="whitespace-nowrap text-xs text-muted-foreground font-medium tabular-nums">
             {new Date(hour.dt * 1000).toLocaleTimeString(undefined, {
               hour: "numeric",
               minute: "2-digit",
@@ -38,7 +38,7 @@ export default function HourlyForecast({coordinates}: Props) {
             })}
           </p>
           <WeatherIcon src={hour.weather[0].icon} />
-          <p className="text-lg font-medium">{Math.round(hour.temp)}°F</p>
+          <p className="text-sm font-semibold text-card-foreground">{Math.round(hour.temp)}°C</p>
         </div>
       ))}
     </Card>

@@ -25,7 +25,7 @@ import HourlySkeleton from "./components/skeletons/HourlySkeleton"
 import AdditionalInfoSkeleton from "./components/skeletons/AdditionalInfoSkeleton"
 import DailySkeleton from "./components/skeletons/DailySkeleton"
 import SidePanel from "./components/SidePanel"
-import { Menu } from "lucide-react"
+import { Menu, CloudSun } from "lucide-react"
 import ThemeToggle from "./components/ThemeToggle"
 
 function App() {
@@ -69,46 +69,44 @@ function App() {
 
   return (
     <>
-      <div className="flex flex-col gap-4 px-4 pb-4 pt-4 sm:pt-4 lg:mr-90">
-        <div className="flex flex-col gap-2 sm:gap-3">
-          <div className="flex items-center justify-end gap-2 sm:hidden">
-            <ThemeToggle />
-            <button
-              onClick={() => setSidePanelOpen(true)}
-              className="p-2 rounded-md hover:bg-accent transition-colors cursor-pointer"
-              aria-label="Open air pollution panel"
-            >
-              <Menu className="size-6" />
-            </button>
+      <div className="flex flex-col gap-5 px-4 pb-6 pt-4 lg:mr-90">
+        {/* Header bar */}
+        <header className="flex flex-col gap-3">
+          <div className="flex items-center gap-2">
+            <CloudSun className="size-6 text-foreground" />
+            <h1 className="text-xl font-bold tracking-tight text-foreground">Umbra</h1>
           </div>
-          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 items-start sm:items-center">
+          <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
             <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2 w-full sm:w-auto">
-              <h1 className="text-lg sm:text-xl font-semibold">Location:</h1>
+              <label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Location</label>
               <LocationSearch key={location} location={location} setLocation={handleLocationChange}/>
             </div>
             <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2 w-full sm:w-auto">
-              <h1 className="text-lg sm:text-xl font-semibold">Map Type:</h1>
+              <label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Map Type</label>
               <MapTypeDropdown mapType={mapType} setMapType={setMapType}/>
             </div>
-            <div className="hidden sm:flex items-center gap-2 ml-auto">
+            <div className="flex items-center gap-1 sm:ml-auto">
               <ThemeToggle />
               <button
                 onClick={() => setSidePanelOpen(true)}
-                className="p-2 rounded-md hover:bg-accent transition-colors cursor-pointer lg:hidden"
+                className="p-2 rounded-lg hover:bg-accent transition-colors cursor-pointer lg:hidden"
                 aria-label="Open air pollution panel"
               >
-                <Menu className="size-6" />
+                <Menu className="size-5" />
               </button>
             </div>
           </div>
-        </div>
+        </header>
       
-        <div className="relative">
-          <Suspense fallback={<div className="h-[400px] w-full rounded-lg bg-muted animate-pulse" />}>
+        {/* Map */}
+        <div className="relative rounded-2xl overflow-hidden border border-border/50 shadow-sm">
+          <Suspense fallback={<div className="h-[400px] w-full bg-muted animate-pulse" />}>
             <Map coordinates={coordinates} onMapClick={onMapClick} mapType={mapType}/>
           </Suspense>
           <MapLegend mapType={mapType} />
         </div>
+
+        {/* Weather cards grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <Suspense fallback={<CurrentSkeleton />}>
             <CurrentWeather coordinates={coordinates} />

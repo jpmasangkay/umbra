@@ -11,17 +11,14 @@ const CARD_COUNT = 8;
 
 export default function SidePanelSkeleton() {
   return (
-    <div className="flex flex-col gap-4 p-1">
+    <div className="flex flex-col gap-5">
       {/* "Air Pollution" heading */}
-      <Skeleton className="h-8 w-40" />
+      <Skeleton className="h-7 w-36" />
 
-      {/* AQI large number */}
-      <Skeleton className="h-12 w-16" />
-
-      {/* "AQI" label + info icon */}
-      <div className="flex items-center gap-2">
-        <Skeleton className="h-8 w-14" />
-        <Skeleton className="size-4 rounded-full" />
+      {/* AQI large number + label */}
+      <div className="flex items-baseline gap-3">
+        <Skeleton className="h-12 w-14" />
+        <Skeleton className="h-5 w-10" />
       </div>
 
       {/* Pollutant cards */}
@@ -30,7 +27,7 @@ export default function SidePanelSkeleton() {
           key={i}
           title=""
           childrenClassName="flex flex-col gap-2"
-          className="text-lg font-medium gap-0!"
+          className="gap-0! p-4"
         >
           {/* Name + value row */}
           <div className="flex justify-between">
