@@ -1,52 +1,100 @@
-# Umbra – Weather Dashboard 🌤️
+# 🌤️ UMBRA
+[![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/jpmasangkay/umbra)
 
-A modern, responsive weather dashboard built with React, TypeScript and Tailwind CSS. View real-time weather data, hourly & daily forecasts, air pollution levels, and interactive weather maps — all in one place.
+### Weather Dashboard
 
-![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-6-646CFF?logo=vite&logoColor=white)
+**Search. Map. Forecast. Now.**
 
-## Features ✨
+A modern, responsive weather dashboard built with React and TypeScript — delivering real-time conditions, hourly & daily forecasts, air pollution data, and interactive weather maps all in one sleek interface.
 
-- **Current Weather** – temperature, feels-like, humidity, wind speed & local time
-- **Hourly Forecast** – scrollable 48-hour outlook with icons
-- **7-Day Forecast** – daily high/low temps at a glance
-- **Additional Info** – cloudiness, UV index, wind direction, pressure, sunrise & sunset
-- **Air Pollution Panel** – AQI index + per-pollutant concentrations with quality-level indicators
-- **Interactive Map** – Leaflet + MapTiler base layer with selectable OpenWeatherMap overlays (clouds, precipitation, wind, pressure, temperature)
-- **Click-to-Select** – click anywhere on the map to fetch weather for that location
-- **Location Search** – type a city name to geocode and jump to it
-- **Dark / Light Mode** – toggle with localStorage persistence; defaults to system preference
-- **Responsive Design** – mobile-first layout; air pollution panel slides in on small screens, always visible on desktop
-- **Skeleton Loaders** – every card shows a shimmer placeholder while data loads (powered by React Suspense)
-- **Runtime Validation** – all API responses validated with Zod schemas
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Vite](https://img.shields.io/badge/Vite-6-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://umbra-sooty.vercel.app)
 
-## Tech Stack 🛠️
+🔗 **Live Demo:** [umbra-sooty.vercel.app](https://umbra-sooty.vercel.app)
 
-| Category | Library |
-| --- | --- |
-| UI Framework | **React 19** + **TypeScript** |
-| Build Tool | **Vite** (SWC plugin) |
-| Styling | **Tailwind CSS v4** + **shadcn/ui** components |
-| Data Fetching | **TanStack React Query** (`useSuspenseQuery`) |
-| Validation | **Zod** |
-| Maps | **Leaflet** + **react-leaflet** + **MapTiler SDK** |
-| Icons | **lucide-react** |
-| Weather Data | **OpenWeatherMap** (OneCall 3.0, Geocoding, Air Pollution) |
+---
 
-## Getting Started 🚀
+## ✨ Features
+
+### 🌡️ Current Weather
+
+- Displays **temperature**, feels-like, **humidity**, **wind speed**, and **local time**
+- Live weather icon reflecting current sky conditions
+- Pulls live data from **OpenWeatherMap OneCall 3.0**
+
+### 🕐 Forecasts
+
+- **Hourly Forecast** — scrollable 48-hour outlook with weather icons and temperatures
+- **7-Day Forecast** — daily high/low temperature view at a glance
+- **Additional Info** panel — cloudiness, UV index, wind direction, pressure, sunrise & sunset
+
+### 🗺️ Interactive Weather Map
+
+| Feature | Description |
+|---------|-------------|
+| **Base Layer** | MapTiler tiles with a clean, modern map style |
+| **Weather Overlays** | Toggle between clouds, precipitation, wind, pressure, and temperature layers |
+| **Click-to-Select** | Click anywhere on the map to fetch weather for that exact location |
+| **Map Legend** | Colour-gradient legend updates to reflect the active overlay layer |
+
+### 🌫️ Air Pollution Panel
+
+- Displays **AQI index** with quality-level indicators (Good → Hazardous)
+- Per-pollutant concentration cards: CO, NO, NO₂, O₃, SO₂, PM₂.₅, PM₁₀, NH₃
+- Slides in as an overlay on mobile; always visible on desktop
+
+### 🔍 Location Search
+
+- Type any city name to geocode and jump to it instantly
+- Powered by the **OpenWeatherMap Geocoding API**
+
+### 🌗 Dark / Light Mode
+
+- Toggle between dark and light themes with one click
+- Preference persists via **localStorage**; defaults to system preference on first visit
+
+### ⚡ Performance & UX
+
+- **Skeleton Loaders** — every card shows a shimmer placeholder while data loads
+- **React Suspense** boundaries for clean, progressive async state handling
+- **Runtime Validation** — all API responses validated with **Zod** schemas
+- Fully **responsive** — mobile-first layout that adapts to any screen size
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
+|-----------|---------|
+| **React 19** | Component architecture with Suspense-powered data fetching |
+| **TypeScript 5** | Full type safety across the entire codebase |
+| **Vite** (SWC) | Lightning-fast dev server and optimized production builds |
+| **Tailwind CSS v4** | Utility-first styling with responsive, mobile-first design |
+| **shadcn/ui** | Accessible UI primitives (buttons, inputs, selects, and more) |
+| **TanStack React Query** | Server state management via `useSuspenseQuery` |
+| **Zod** | Runtime API response validation and TypeScript type inference |
+| **Leaflet + react-leaflet** | Interactive map rendering and layer control |
+| **MapTiler SDK** | Base map tiles and vector layer support |
+| **Lucide React** | Crisp, consistent icon set |
+| **OpenWeatherMap API** | Weather data, geocoding, and air pollution data |
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- **Node.js** ≥ 18
-- An **OpenWeatherMap** API key (with OneCall 3.0 access)
+- [Node.js](https://nodejs.org) 18+
+- An **OpenWeatherMap** API key (OneCall 3.0 access required)
 - A **MapTiler** API key
 
 ### Installation
 
 ```bash
-# Clone the repo
+# Clone the repository
 git clone https://github.com/jpmasangkay/umbra.git
 cd umbra
 
@@ -69,75 +117,106 @@ VITE_MAPTILES_API_KEY=your_maptiler_api_key
 npm run dev
 ```
 
-Open the URL shown in your terminal (usually http://localhost:5173).
+Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-### Production Build
+### Available Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start the Vite development server |
+| `npm run build` | Type-check with `tsc` and build for production |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint` | Run ESLint across the project |
+
+### Build for Production
 
 ```bash
-npm run build    # outputs to dist/
-npm run preview  # preview the production build locally
+npm run build
 ```
 
-## Project Structure 📁
+Output will be in the `dist/` folder, ready to deploy to any static hosting provider.
+
+---
+
+## 📁 Project Structure
 
 ```
 umbra/
-├── public/                      # Static assets
+├── public/                          # Static assets
 ├── src/
-│   ├── api.ts                   # API fetch functions (weather, geocode, air pollution)
-│   ├── App.tsx                  # Root component – layout, state, Suspense boundaries
-│   ├── main.tsx                 # Entry point – React DOM + QueryClientProvider
-│   ├── types.ts                 # Shared TypeScript types (Coordinates)
-│   ├── index.css                # Global styles & Tailwind directives
+│   ├── api.ts                       # API fetch functions (weather, geocode, air pollution)
+│   ├── App.tsx                      # Root component — layout, state, Suspense boundaries
+│   ├── main.tsx                     # Entry point — React DOM + QueryClientProvider
+│   ├── types.ts                     # Shared TypeScript types (Coordinates, etc.)
+│   ├── index.css                    # Global styles & Tailwind directives
 │   ├── lib/
-│   │   └── utils.ts             # cn() helper (clsx + tailwind-merge)
+│   │   └── utils.ts                 # cn() helper (clsx + tailwind-merge)
 │   ├── schemas/
-│   │   ├── weatherSchema.ts     # Zod schema for OneCall 3.0 response
-│   │   ├── geoCodeSchema.ts     # Zod schema for Geocoding response
-│   │   └── airPollutionSchema.ts# Zod schema for Air Pollution response
+│   │   ├── weatherSchema.ts         # Zod schema for OneCall 3.0 response
+│   │   ├── geoCodeSchema.ts         # Zod schema for Geocoding API response
+│   │   └── airPollutionSchema.ts    # Zod schema for Air Pollution response
 │   ├── components/
-│   │   ├── Map.tsx              # Leaflet map with MapTiler & weather overlays
-│   │   ├── MapLegend.tsx        # Colour-gradient legend for the active map layer
-│   │   ├── SidePanel.tsx        # Air pollution panel (AQI + pollutant cards)
-│   │   ├── ThemeToggle.tsx      # Dark / light mode button
-│   │   ├── WeatherIcon.tsx      # OWM icon renderer
+│   │   ├── Map.tsx                  # Leaflet map with MapTiler & weather overlays
+│   │   ├── MapLegend.tsx            # Colour-gradient legend for the active map layer
+│   │   ├── SidePanel.tsx            # Air pollution panel (AQI + pollutant cards)
+│   │   ├── ThemeToggle.tsx          # Dark / light mode toggle button
+│   │   ├── WeatherIcon.tsx          # OpenWeatherMap icon renderer
 │   │   ├── cards/
-│   │   │   ├── Card.tsx         # Reusable gradient card wrapper
-│   │   │   ├── CurrentWeather.tsx
-│   │   │   ├── HourlyForecast.tsx
-│   │   │   ├── DailyForecast.tsx
-│   │   │   └── AdditionalInfo.tsx
+│   │   │   ├── Card.tsx             # Reusable gradient card wrapper
+│   │   │   ├── CurrentWeather.tsx   # Current conditions card
+│   │   │   ├── HourlyForecast.tsx   # 48-hour scrollable forecast card
+│   │   │   ├── DailyForecast.tsx    # 7-day daily forecast card
+│   │   │   └── AdditionalInfo.tsx   # UV, pressure, wind, sunrise/sunset card
 │   │   ├── dropdowns/
-│   │   │   ├── LocationSearch.tsx
-│   │   │   └── MapTypeDropdown.tsx
-│   │   ├── skeletons/           # Matching skeleton loaders for every card
+│   │   │   ├── LocationSearch.tsx   # City search input with geocoding
+│   │   │   └── MapTypeDropdown.tsx  # Weather overlay layer selector
+│   │   ├── skeletons/               # Shimmer skeleton loaders for every card
 │   │   │   ├── CurrentSkeleton.tsx
 │   │   │   ├── HourlySkeleton.tsx
 │   │   │   ├── DailySkeleton.tsx
 │   │   │   ├── AdditionalInfoSkeleton.tsx
 │   │   │   └── SidePanelSkeleton.tsx
-│   │   └── ui/                  # shadcn/ui primitives (button, input, select, …)
+│   │   └── ui/                      # shadcn/ui primitives (button, input, select, …)
 │   └── assets/
-├── components.json              # shadcn/ui config
-├── vite.config.ts
-├── tsconfig.json
+├── components.json                  # shadcn/ui configuration
+├── vite.config.ts                   # Vite configuration
+├── tsconfig.json                    # TypeScript project references
+├── tsconfig.app.json                # TypeScript config for app source
+├── tsconfig.node.json               # TypeScript config for Node tooling
+├── eslint.config.js                 # ESLint flat config
 └── package.json
 ```
 
-## Available Scripts 📝
+---
 
-| Command | Description |
-| --- | --- |
-| `npm run dev` | Start Vite dev server |
-| `npm run build` | Production build |
-| `npm run preview` | Preview production build |
-| `npm run lint` | Run ESLint |
+## 🧠 How It Works
 
-## Deployment
+Umbra is built around a **Suspense-first data architecture** powered by TanStack React Query:
 
-The app is deployed on **Vercel**. Push to `main` and Vercel will build + deploy automatically. Make sure the environment variables above are set in the Vercel project settings.
+1. **Location Resolution** — On load, the app requests the user's geolocation. If denied, it falls back to a default city. The search box lets users geocode any city by name via the OpenWeatherMap Geocoding API.
 
-## Acknowledgements 👏
+2. **Data Fetching** — Three parallel `useSuspenseQuery` calls fetch current weather (OneCall 3.0), geocoding metadata, and air pollution data. Each call is guarded by a **Zod schema** that validates the API response shape at runtime and infers TypeScript types automatically.
+
+3. **Suspense Boundaries** — Each dashboard card is wrapped in its own `<Suspense>` boundary with a matching skeleton loader, so the UI loads progressively — cards appear as their data resolves rather than waiting for everything at once.
+
+4. **Interactive Map** — Leaflet renders the base map using MapTiler tiles. A dropdown switches between five **OpenWeatherMap tile overlays** (clouds, precipitation, wind, pressure, temperature). Clicking anywhere on the map fires a coordinate lookup and refreshes all dashboard data for that location.
+
+5. **Theme System** — A CSS variable–based theme toggles between dark and light mode. The preference is stored in `localStorage` and applied before the first render to prevent a flash of unstyled content.
+
+---
+
+## 🌐 Deployment
+
+Umbra is deployed on **Vercel**. Pushing to `main` triggers an automatic build and deployment.
+
+To deploy your own instance:
+1. Import the repo into [Vercel](https://vercel.com)
+2. Add `VITE_API_KEY` and `VITE_MAPTILES_API_KEY` in the project's **Environment Variables** settings
+3. Deploy — Vercel handles the rest
+
+---
+
+## 👏 Acknowledgements
 
 - Weather data by [OpenWeatherMap](https://openweathermap.org/)
 - Map tiles by [MapTiler](https://www.maptiler.com/)
@@ -145,7 +224,3 @@ The app is deployed on **Vercel**. Push to `main` and Vercel will build + deploy
 - UI primitives by [shadcn/ui](https://ui.shadcn.com/)
 
 ---
-
-Built with React + TypeScript + Tailwind CSS
-
-[![DeepWiki](https://img.shields.io/badge/DeepWiki-jpmasangkay%2Fumbra-blue?logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTQgMTloMTYiLz48cGF0aCBkPSJNNCAxNWgxNiIvPjxwYXRoIGQ9Ik00IDExaDE2Ii8+PHBhdGggZD0iTTQgN2gxNiIvPjwvc3ZnPg==)](https://deepwiki.com/jpmasangkay/umbra)
