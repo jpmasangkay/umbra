@@ -25,7 +25,7 @@ import HourlySkeleton from "./components/skeletons/HourlySkeleton"
 import AdditionalInfoSkeleton from "./components/skeletons/AdditionalInfoSkeleton"
 import DailySkeleton from "./components/skeletons/DailySkeleton"
 import SidePanel from "./components/SidePanel"
-import { Menu } from "lucide-react"
+import { Menu, CloudSun } from "lucide-react"
 import ThemeToggle from "./components/ThemeToggle"
 
 function App() {
@@ -72,18 +72,9 @@ function App() {
       <div className="flex flex-col gap-5 px-4 pb-6 pt-4 lg:mr-90">
         {/* Header bar */}
         <header className="flex flex-col gap-3">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <CloudSun className="size-6 text-foreground" />
             <h1 className="text-xl font-bold tracking-tight text-foreground">Umbra</h1>
-            <div className="flex items-center gap-1">
-              <ThemeToggle />
-              <button
-                onClick={() => setSidePanelOpen(true)}
-                className="p-2 rounded-lg hover:bg-accent transition-colors cursor-pointer lg:hidden"
-                aria-label="Open air pollution panel"
-              >
-                <Menu className="size-5" />
-              </button>
-            </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
             <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2 w-full sm:w-auto">
@@ -93,6 +84,16 @@ function App() {
             <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2 w-full sm:w-auto">
               <label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Map Type</label>
               <MapTypeDropdown mapType={mapType} setMapType={setMapType}/>
+            </div>
+            <div className="flex items-center gap-1 sm:ml-auto">
+              <ThemeToggle />
+              <button
+                onClick={() => setSidePanelOpen(true)}
+                className="p-2 rounded-lg hover:bg-accent transition-colors cursor-pointer lg:hidden"
+                aria-label="Open air pollution panel"
+              >
+                <Menu className="size-5" />
+              </button>
             </div>
           </div>
         </header>
