@@ -21,7 +21,7 @@ export default function Card({children, title, childrenClassName, className}: Pr
     <div className={cn("flex flex-col gap-4 p-5 rounded-2xl bg-card border border-border/50 shadow-sm overflow-hidden", className)}>
       {title && <h2 className="text-lg font-semibold tracking-tight text-card-foreground">{title}</h2>}
         {/* Content wrapper with a 2-second fade-in animation */}
-        <div className={cn(childrenClassName, "animate-[fade-in_2s_ease-out_forwards]")}>
+        <div className={cn("flex-1", childrenClassName, "animate-[fade-in_2s_ease-out_forwards]")}>
           {children}
         </div>
     </div>

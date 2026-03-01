@@ -25,7 +25,7 @@ export default function CurrentWeather({coordinates}: Props) {
   })
 
   return (
-    <Card title="Current Weather" childrenClassName="flex flex-col items-center gap-6">
+    <Card title="Current Weather" childrenClassName="flex flex-col items-center justify-center gap-6 flex-1" className="h-full">
       <div className="flex flex-col gap-1 items-center">
         <WeatherIcon src={data.current.weather[0].icon} className="size-16" /> 
         <h2 className="text-5xl font-bold tracking-tight text-card-foreground">{Math.round(data.current.temp)}°C</h2>
