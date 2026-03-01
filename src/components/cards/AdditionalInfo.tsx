@@ -22,14 +22,14 @@ export default function AdditionalInfo({coordinates}: Props) {
   })
   
   return (
-    <Card title="Additional Info" childrenClassName="flex flex-col gap-8">
+    <Card title="Additional Info" childrenClassName="grid grid-cols-2 sm:grid-cols-3 gap-3">
       {rows.map(({label, value, Icon}) => (
-        <div key={value} className="flex justify-between items-center">
+        <div key={value} className="flex flex-col gap-2 rounded-xl bg-muted/50 p-3">
           <div className="flex items-center gap-2">
-            <Icon className="size-8 text-white" />
-            <span className="text-gray-500">{label}</span>
+            <Icon className="size-5 text-muted-foreground" />
+            <span className="text-xs text-muted-foreground">{label}</span>
           </div>
-          <span className="font-semibold">
+          <span className="text-lg font-semibold text-foreground pl-7">
             <FormatComponent 
               field={value}
               value={data.current[value as keyof typeof data.current] as number} 
