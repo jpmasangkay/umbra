@@ -33,7 +33,7 @@ type Props = {
 export default function SidePanel({ coordinates, open, onClose }: SidePanelProps) {
   return (
     <div
-      className={`fixed top-0 right-0 z-1001 h-screen w-90 bg-sidebar shadow-md py-8 px-4 overflow-y-scroll transition-transform duration-300 lg:translate-x-0 ${
+      className={`fixed top-0 right-0 z-1001 h-screen w-90 bg-sidebar border-l border-border/50 py-6 px-5 overflow-y-auto transition-transform duration-300 ease-in-out lg:translate-x-0 ${
         open ? "translate-x-0" : "translate-x-full"
       }`}
     >
@@ -51,40 +51,42 @@ function AirPollution({ coordinates, onClose }: Props & { onClose: () => void })
   });
 
   return (
-    <div className="flex flex-col gap-4 p-1 animate-[fade-in_2s_ease-out_forwards]">
+    <div className="flex flex-col gap-5 animate-[fade-in_2s_ease-out_forwards]">
       <div className="flex items-center gap-3">
         <button
           onClick={onClose}
-          className="p-1.5 rounded-md hover:bg-accent transition-colors cursor-pointer lg:hidden"
+          className="p-1.5 rounded-lg hover:bg-accent transition-colors cursor-pointer lg:hidden"
           aria-label="Close side panel"
         >
           <ArrowLeft className="size-5" />
         </button>
-        <h1 className="text-2xl font-semibold">Air Pollution</h1>
+        <h1 className="text-xl font-bold tracking-tight text-sidebar-foreground">Air Pollution</h1>
       </div>
-      <h1 className="text-5xl font-semibold">{data.list[0].main.aqi}</h1>
-      <div className="flex items-center gap-2">
-        <h1 className="text-2xl font-semibold">AQI</h1>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              <Info className="h-4 w-4 text-muted-foreground" />
-            </TooltipTrigger>
-            <TooltipContent className="z-2000">
-              <p className="max-w-xs">Air Quality Index. Possible values: 1, 2, 3, 4, 5. Where 1 = Good, 2 = Fair, 3 = Moderate, 4 = Poor, 5 = Very Poor.</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+      <div className="flex items-baseline gap-3">
+        <h2 className="text-5xl font-bold tracking-tight text-sidebar-foreground">{data.list[0].main.aqi}</h2>
+        <div className="flex items-center gap-1.5">
+          <span className="text-lg font-semibold text-muted-foreground">AQI</span>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <Info className="h-4 w-4 text-muted-foreground" />
+              </TooltipTrigger>
+              <TooltipContent className="z-2000">
+                <p className="max-w-xs">Air Quality Index. Possible values: 1, 2, 3, 4, 5. Where 1 = Good, 2 = Fair, 3 = Moderate, 4 = Poor, 5 = Very Poor.</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
       </div>
       {Object.entries(data.list[0]?.components).map(([key, value]) => {
         const range = pollutantRanges[key];
         const max = range ? range.poor : 500;
         const quality = getQualityLevel(key, value);
         return (
-          <Card key={key} title={""} childrenClassName="flex flex-col gap-2" className="text-lg font-medium hover:scale-105 transition-transform duration-300 gap-0!">
-            <div className="flex justify-between">
+          <Card key={key} title={""} childrenClassName="flex flex-col gap-2" className="gap-0! p-4">
+            <div className="flex justify-between items-center">
               <div className="flex items-center gap-2">
-                <span className="text-lg font-bold capitalize">{key}</span>
+                <span className="text-sm font-semibold capitalize text-card-foreground">{key}</span>
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger>
@@ -96,18 +98,18 @@ function AirPollution({ coordinates, onClose }: Props & { onClose: () => void })
                   </Tooltip>
                 </TooltipProvider>
               </div>
-              <span className="text-lg font-semibold">{value} μg/m³</span>
+              <span className="text-sm font-semibold text-card-foreground tabular-nums">{value} <span className="text-muted-foreground font-normal">{"μg/m³"}</span></span>
             </div>
             <Slider disabled min={0} max={max} value={[Math.min(value, max)]} />
-            <div className="flex justify-between text-xs text-zinc-400">
+            <div className="flex justify-between text-xs text-muted-foreground">
               <span>0</span>
               <span>{max}</span>
             </div>
-            <div className="flex justify-between text-xs">
+            <div className="flex justify-between text-xs gap-1">
               {qualityLevels.map((level) => (
                 <span
                   key={level}
-                  className={`px-1.5 py-0.5 rounded ${quality === level ? qualityColors[level] + " text-white" : "text-zinc-400"}`}
+                  className={`px-1.5 py-0.5 rounded-md text-center flex-1 transition-colors ${quality === level ? qualityColors[level] + " text-card" : "text-muted-foreground bg-accent/50"}`}
                 >
                   {level}
                 </span>
@@ -152,11 +154,11 @@ const qualityLevels = ["Good", "Fair", "Moderate", "Poor", "Very Poor"] as const
 
 /** Tailwind background colour class for each quality tier */
 const qualityColors: Record<string, string> = {
-  "Good": "bg-green-500",
+  "Good": "bg-green-600",
   "Fair": "bg-yellow-500",
   "Moderate": "bg-orange-500",
   "Poor": "bg-red-500",
-  "Very Poor": "bg-purple-500",
+  "Very Poor": "bg-red-800",
 };
 
 /** Determine which quality tier a pollutant value falls into. */

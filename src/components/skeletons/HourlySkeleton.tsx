@@ -17,11 +17,11 @@ export default function HourlySkeleton() {
 			{Array.from({ length: HOURLY_ITEM_COUNT }).map((_, index) => (
 				<div
 					key={index}
-					className="flex flex-col gap-3 items-center shrink-0 w-20"
+					className="flex flex-col gap-2 items-center shrink-0 w-20 py-3 px-2 rounded-xl bg-accent/50"
 				>
-					<Skeleton className="h-5 w-16" />
+					<Skeleton className="h-4 w-14" />
 					<Skeleton className="size-8 rounded-full" />
-					<Skeleton className="h-7 w-14" />
+					<Skeleton className="h-4 w-12" />
 				</div>
 			))}
 		</Card>

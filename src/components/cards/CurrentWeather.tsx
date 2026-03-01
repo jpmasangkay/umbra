@@ -26,14 +26,14 @@ export default function CurrentWeather({coordinates}: Props) {
 
   return (
     <Card title="Current Weather" childrenClassName="flex flex-col items-center gap-6">
-      <div className="flex flex-col gap-2 items-center">
-        <h2 className="text-6xl font-semibold text-center">{Math.round(data.current.temp)}°C</h2>
-        <WeatherIcon src={data.current.weather[0].icon} className="size-15" /> 
-        <h3 className="capitalize text-xl">{data.current.weather[0].description}</h3>
+      <div className="flex flex-col gap-1 items-center">
+        <WeatherIcon src={data.current.weather[0].icon} className="size-16" /> 
+        <h2 className="text-5xl font-bold tracking-tight text-card-foreground">{Math.round(data.current.temp)}°C</h2>
+        <h3 className="capitalize text-base text-muted-foreground mt-1">{data.current.weather[0].description}</h3>
       </div>
-      <div className="flex flex-col gap-2">
-        <p className='text-xl text-center'>Local Time:</p>
-        <h3 className='text-4xl  font-semibold'>
+      <div className="flex flex-col gap-1 items-center">
+        <p className="text-sm text-muted-foreground uppercase tracking-wider">Local Time</p>
+        <h3 className="text-3xl font-semibold text-card-foreground tabular-nums">
           {new Intl.DateTimeFormat("en-GB", {
             hour: "numeric", 
             minute: "2-digit",
@@ -42,18 +42,18 @@ export default function CurrentWeather({coordinates}: Props) {
           }).format(data.current.dt * 1000)}
         </h3>
       </div>
-      <div className='flex justify-between w-full'>
-        <div className='flex flex-col gap-2 items-center'>
-            <p className='text-gray-500'>Feels Like</p>
-            <p>{Math.round(data.current.feels_like)}°C</p>
+      <div className="flex justify-between w-full pt-4 border-t border-border/50">
+        <div className="flex flex-col gap-1 items-center flex-1">
+            <p className="text-xs text-muted-foreground uppercase tracking-wider">Feels Like</p>
+            <p className="text-lg font-semibold text-card-foreground">{Math.round(data.current.feels_like)}°C</p>
         </div>
-        <div className='flex flex-col gap-2 items-center'>
-            <p className='text-gray-500'>Humidity</p>
-            <p>{data.current.humidity}%</p>
+        <div className="flex flex-col gap-1 items-center flex-1 border-x border-border/50">
+            <p className="text-xs text-muted-foreground uppercase tracking-wider">Humidity</p>
+            <p className="text-lg font-semibold text-card-foreground">{data.current.humidity}%</p>
         </div>
-        <div className='flex flex-col gap-2 items-center'>
-            <p className='text-gray-500'>Wind</p>
-            <p>{data.current.wind_speed} m/s</p>
+        <div className="flex flex-col gap-1 items-center flex-1">
+            <p className="text-xs text-muted-foreground uppercase tracking-wider">Wind</p>
+            <p className="text-lg font-semibold text-card-foreground">{data.current.wind_speed} m/s</p>
         </div>
       </div>
     </Card>
