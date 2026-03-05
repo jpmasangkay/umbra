@@ -27,7 +27,6 @@ import DailySkeleton from "./components/skeletons/DailySkeleton"
 import SidePanel from "./components/SidePanel"
 import { Menu } from "lucide-react"
 import ThemeToggle from "./components/ThemeToggle"
-import GlassmorphismShowcase from "./components/GlassmorphismShowcase"
 
 function App() {
   // Coordinates set by clicking on the map (takes priority over geocode)
@@ -38,8 +37,6 @@ function App() {
   const [mapType, setMapType] = useState('clouds_new')
   // Controls the mobile slide-in side panel visibility
   const [sidePanelOpen, setSidePanelOpen] = useState(false)
-  // Toggle to show glassmorphism showcase
-  const [showShowcase, setShowShowcase] = useState(true)
 
   // Convert the text location to coordinates via the Geocoding API.
   // keepPreviousData avoids a flash of empty state when the query key changes.
@@ -70,24 +67,6 @@ function App() {
     setLocation(value)
   }
 
-  // If showcase is enabled, display glassmorphism demo instead of weather dashboard
-  if (showShowcase) {
-    return (
-      <div className="min-h-screen bg-background">
-        <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
-          <ThemeToggle />
-          <button
-            onClick={() => setShowShowcase(false)}
-            className="px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
-          >
-            Back to Dashboard
-          </button>
-        </div>
-        <GlassmorphismShowcase />
-      </div>
-    )
-  }
-
   return (
     <>
       <div className="flex flex-col gap-5 px-4 pb-6 pt-4 lg:mr-90">
@@ -96,14 +75,6 @@ function App() {
           <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
             <div className="flex items-center gap-1 self-end sm:self-auto sm:order-last sm:ml-auto">
               <ThemeToggle />
-              <button
-                onClick={() => setShowShowcase(true)}
-                className="p-2 rounded-lg hover:bg-accent transition-colors cursor-pointer text-xs font-medium"
-                aria-label="Show glassmorphism showcase"
-                title="View glassmorphism showcase"
-              >
-                ✨
-              </button>
               <button
                 onClick={() => setSidePanelOpen(true)}
                 className="p-2 rounded-lg hover:bg-accent transition-colors cursor-pointer lg:hidden"
@@ -124,7 +95,7 @@ function App() {
         </header>
       
         {/* Map */}
-        <div className="relative rounded-2xl overflow-hidden border border-border/50 shadow-sm">
+        <div className="relative rounded-2xl overflow-hidden glass-card-gradient glass-card-hover">
           <Suspense fallback={<div className="h-100 w-full bg-muted animate-pulse" />}>
             <Map coordinates={coordinates} onMapClick={onMapClick} mapType={mapType}/>
           </Suspense>

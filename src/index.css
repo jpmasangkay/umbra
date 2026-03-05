@@ -210,6 +210,58 @@
   border: 1.5px solid transparent;
 }
 
+/* Glassmorphism for all inputs and form elements */
+input, textarea, select {
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+input:focus, textarea:focus, select:focus {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(100, 200, 255, 0.4) !important;
+  box-shadow: inset 0 0 10px rgba(100, 200, 255, 0.1) !important;
+}
+
+.dark input, .dark textarea, .dark select {
+  background: rgba(30, 30, 46, 0.7) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark input:focus, .dark textarea:focus, .dark select:focus {
+  background: rgba(40, 40, 60, 0.8) !important;
+  border-color: rgba(100, 150, 255, 0.3) !important;
+  box-shadow: inset 0 0 10px rgba(100, 150, 255, 0.1) !important;
+}
+
+/* Glassmorphism for buttons and interactive elements */
+button:not(.text-xs), [role="button"] {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:not(.text-xs):hover, [role="button"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.dark button:not(.text-xs):hover, .dark [role="button"]:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Glassmorphism for dropdowns and popovers */
+.popover, [role="menu"], [role="listbox"], [role="dialog"] {
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+.dark .popover, .dark [role="menu"], .dark [role="listbox"], .dark [role="dialog"] {
+  background: rgba(30, 30, 46, 0.7) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
@@ -221,10 +273,11 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: oklch(0.6 0 0 / 25%);
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 999px;
+  backdrop-filter: blur(10px);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: oklch(0.6 0 0 / 40%);
+  background: rgba(255, 255, 255, 0.25);
 }

@@ -15,7 +15,7 @@ const maxDataValue = data.stops[data.stops.length - 1].value
 const dataGradiantStops = data.stops.map(stop => `${stop.color} ${(stop.value / maxDataValue) * 100}%`).join(', ')
 
   return (
-    <div className='absolute top-4 right-4 z-1000 w-72 sm:w-80 rounded-xl p-3 bg-background/80 backdrop-blur-sm border border-border/50 shadow-sm flex flex-col gap-2'>
+    <div className='absolute top-4 right-4 z-1000 w-72 sm:w-80 rounded-xl p-3 glass-card glass-card-hover flex flex-col gap-2'>
         <h3 className='text-xs font-semibold text-foreground tracking-wide'>{data.title}</h3>
         <div className='w-full h-4 rounded-lg'
         style={{

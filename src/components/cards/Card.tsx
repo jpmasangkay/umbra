@@ -14,21 +14,16 @@ type Props = {
     childrenClassName?: string
     /** Extra classes applied to the outer card container */
     className?: string
-    /** Enable gradient border and enhanced hover effects */
-    glassmorphic?: boolean
 }
 
-export default function Card({children, title, childrenClassName, className, glassmorphic = true}: Props) {
+export default function Card({children, title, childrenClassName, className}: Props) {
   return (
     <div className={cn(
-      "flex flex-col gap-4 p-5 rounded-2xl overflow-hidden",
-      glassmorphic 
-        ? "glass-card-gradient glass-card-hover" 
-        : "bg-card border border-border/50 shadow-sm",
+      "flex flex-col gap-4 p-5 rounded-2xl overflow-hidden glass-card-gradient glass-card-hover",
       className
     )}>
       {title && (
-        <h2 className="text-lg font-semibold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/80">
+        <h2 className="text-lg font-semibold tracking-tight text-foreground">
           {title}
         </h2>
       )}

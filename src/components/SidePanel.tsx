@@ -33,7 +33,7 @@ type Props = {
 export default function SidePanel({ coordinates, open, onClose }: SidePanelProps) {
   return (
     <div
-      className={`fixed top-0 right-0 z-1001 h-screen w-90 bg-sidebar border-l border-border/50 py-6 px-5 overflow-y-auto transition-transform duration-300 ease-in-out lg:translate-x-0 ${
+      className={`fixed top-0 right-0 z-1001 h-screen w-90 glass-card py-6 px-5 overflow-y-auto transition-transform duration-300 ease-in-out lg:translate-x-0 border-l border-white/10 ${
         open ? "translate-x-0" : "translate-x-full"
       }`}
     >
