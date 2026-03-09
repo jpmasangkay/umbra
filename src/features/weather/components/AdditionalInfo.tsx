@@ -6,10 +6,10 @@
  * a lucide icon, a label and a formatted value.
  */
 import { useSuspenseQuery } from '@tanstack/react-query'
-import Card from './Card'
-import { getWeather } from '../../api'
+import Card from '@/components/Card'
+import { getWeather } from '../api'
 import { Cloud, Sun, Wind, Gauge, Sunrise, Sunset } from 'lucide-react'
-import type { Coordinates } from '../../types'
+import type { Coordinates } from '@/types'
 
 type Props = {
     coordinates: Coordinates
@@ -43,7 +43,12 @@ export default function AdditionalInfo({coordinates}: Props) {
   )
 }
 
-/**\n * FormatComponent \u2013 renders a value differently depending on the field:\n *  - sunrise/sunset \u2192 locale-formatted time string\n *  - wind_deg       \u2192 rotated Wind icon\n *  - everything else\u2192 raw number\n */
+/**
+ * FormatComponent – renders a value differently depending on the field:
+ *  - sunrise/sunset → locale-formatted time string
+ *  - wind_deg       → rotated Wind icon
+ *  - everything else→ raw number
+ */
 function FormatComponent({field, value}: {field: string, value: number}) {
     if(field === 'sunrise' || field === 'sunset') {
         return new Intl.DateTimeFormat("en-PH", {

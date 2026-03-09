@@ -3,8 +3,8 @@
  * CurrentWeather.tsx.  Shown inside a <Suspense> boundary while the
  * weather API call is in flight.
  */
-import Card from '../cards/Card'
-import { Skeleton } from '../ui/skeleton'
+import Card from '@/components/Card'
+import { Skeleton } from '@/components/ui/skeleton'
 
 export default function CurrentSkeleton() {
   return (

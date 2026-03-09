@@ -4,7 +4,7 @@
  * a shadow, and a subtle fade-in animation to its children.
  */
 import React from 'react'
-import { cn } from '../../lib/utils'
+import { cn } from '@/lib/utils'
 
 type Props = {
     children: React.ReactNode

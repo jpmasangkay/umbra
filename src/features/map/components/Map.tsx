@@ -12,7 +12,7 @@ import { useEffect, useRef } from "react";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { MaptilerLayer } from "@maptiler/leaflet-maptilersdk";
-import type { Coordinates } from "../types";
+import type { Coordinates } from "@/types";
 
 // ----- Fix default Leaflet marker icons (broken by bundlers) -----
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -115,7 +115,7 @@ function MapTileLayer() {
         // Only create the layer once
         if (!layerRef.current) {
             layerRef.current = new MaptilerLayer({
-                style: 'basic-dark', 
+                style: 'backdrop-v4-dark', 
                 apiKey: MAPTILES_KEY
             })
             layerRef.current.addTo(map)

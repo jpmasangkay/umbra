@@ -8,25 +8,25 @@
  *  - Lays out the main content grid with Suspense boundaries + skeleton fallbacks.
  *  - Renders the air-pollution SidePanel (always visible on desktop, slide-in on mobile).
  */
-import DailyForecast from "./components/cards/DailyForecast"
+import DailyForecast from "./features/weather/components/DailyForecast"
 import { useState, useMemo, Suspense, lazy } from "react"
-import HourlyForecast from "./components/cards/HourlyForecast"
-import CurrentWeather from "./components/cards/CurrentWeather"
-import AdditionalInfo from "./components/cards/AdditionalInfo"
-const Map = lazy(() => import("./components/Map"))
+import HourlyForecast from "./features/weather/components/HourlyForecast"
+import CurrentWeather from "./features/weather/components/CurrentWeather"
+import AdditionalInfo from "./features/weather/components/AdditionalInfo"
+const Map = lazy(() => import("./features/map/components/Map"))
 import type { Coordinates } from "./types"
-import LocationSearch from "./components/dropdowns/LocationSearch"
+import LocationSearch from "./features/location/components/LocationSearch"
 import { useQuery, keepPreviousData } from "@tanstack/react-query"
-import { getGeocode } from "./api"
-import MapTypeDropdown from "./components/dropdowns/MapTypeDropdown"
-import MapLegend from "./components/MapLegend"
-import CurrentSkeleton from "./components/skeletons/CurrentSkeleton"
-import HourlySkeleton from "./components/skeletons/HourlySkeleton"
-import AdditionalInfoSkeleton from "./components/skeletons/AdditionalInfoSkeleton"
-import DailySkeleton from "./components/skeletons/DailySkeleton"
-import SidePanel from "./components/SidePanel"
+import { getGeocode } from "./features/location/api"
+import MapTypeDropdown from "./features/map/components/MapTypeDropdown"
+import MapLegend from "./features/map/components/MapLegend"
+import CurrentSkeleton from "./features/weather/components/CurrentSkeleton"
+import HourlySkeleton from "./features/weather/components/HourlySkeleton"
+import AdditionalInfoSkeleton from "./features/weather/components/AdditionalInfoSkeleton"
+import DailySkeleton from "./features/weather/components/DailySkeleton"
+import SidePanel from "./features/air-pollution/components/SidePanel"
 import { Menu } from "lucide-react"
-import ThemeToggle from "./components/ThemeToggle"
+import ThemeToggle from "./features/theme/ThemeToggle"
 
 function App() {
   // Coordinates set by clicking on the map (takes priority over geocode)

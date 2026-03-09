@@ -4,10 +4,10 @@
  * Each entry shows the time, a weather icon from OWM, and the temperature.
  * Wraps in a Card with overflow-x-auto for the scroll behaviour.
  */
-import { getWeather } from '../../api'
-import type { Coordinates } from '../../types'
-import WeatherIcon from '../WeatherIcon'
-import Card from './Card'
+import { getWeather } from '../api'
+import type { Coordinates } from '@/types'
+import WeatherIcon from './WeatherIcon'
+import Card from '@/components/Card'
 import { useSuspenseQuery } from '@tanstack/react-query'
 
 type Props = {

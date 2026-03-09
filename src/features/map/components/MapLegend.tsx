@@ -116,7 +116,7 @@ const mapTypeData: Record<
   },
 };
 
-/** A single point in the legend’s colour gradient */
+/** A single point in the legend's colour gradient */
 interface ColorStop {
     value: number;
     color: string;

@@ -7,7 +7,7 @@
  * a capitalised label is derived for display.
  */
 import type { Dispatch, SetStateAction } from 'react'
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 type Props = {
   mapType: string

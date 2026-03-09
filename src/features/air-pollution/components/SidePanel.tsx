@@ -10,15 +10,15 @@
  *  - A card for each pollutant showing concentration, a slider,
  *    min/max labels, and colour-coded quality-level pills.
  */
-import { getAirPollution } from "@/api";
+import { getAirPollution } from "../api";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Suspense } from "react";
 import type { Coordinates } from "@/types";
-import Card from "./cards/Card";
-import { Slider } from "./ui/slider";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
+import Card from "@/components/Card";
+import { Slider } from "@/components/ui/slider";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Info, ArrowLeft } from "lucide-react";
-import SidePanelSkeleton from "./skeletons/SidePanelSkeleton";
+import SidePanelSkeleton from "./SidePanelSkeleton";
 
 type SidePanelProps = {
   coordinates: Coordinates;

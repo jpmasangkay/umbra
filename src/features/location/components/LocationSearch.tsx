@@ -2,17 +2,17 @@
  * LocationSearch – text input that lets the user search for a city.
  *
  * Maintains its own local `query` state to allow free typing.
- * The parent’s `setLocation` is only called on Enter or blur so we
+ * The parent's `setLocation` is only called on Enter or blur so we
  * avoid firing a geocode request on every keystroke.
  * If the input is cleared, it reverts to the last valid location.
  */
 import { useState, type Dispatch, type SetStateAction } from 'react'
-import { Input } from '../ui/input'
+import { Input } from '@/components/ui/input'
 
 type Props = {
   /** Current location string held by the parent */
   location: string
-  /** Callback to update the parent’s location state */
+  /** Callback to update the parent's location state */
   setLocation: Dispatch<SetStateAction<string>>
 }
 

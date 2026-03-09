@@ -8,10 +8,10 @@
  * Data is fetched with useSuspenseQuery so the nearest <Suspense>
  * boundary renders a skeleton while loading.
  */
-import { getWeather } from '../../api'
-import type { Coordinates } from '../../types'
-import WeatherIcon from '../WeatherIcon'
-import Card from './Card'
+import { getWeather } from '../api'
+import type { Coordinates } from '@/types'
+import WeatherIcon from './WeatherIcon'
+import Card from '@/components/Card'
 import { useSuspenseQuery } from '@tanstack/react-query'
 
 type Props = {
