@@ -1,9 +1,5 @@
 /**
- * AdditionalInfo – secondary weather data not shown in CurrentWeather.
- *
- * Displays cloudiness, UV index, wind direction (rotated icon),
- * atmospheric pressure, sunrise and sunset times.  Each row has
- * a lucide icon, a label and a formatted value.
+ * AdditionalInfo – refined metric rows for secondary weather data.
  */
 import { useSuspenseQuery } from '@tanstack/react-query'
 import Card from '@/components/Card'
@@ -12,29 +8,35 @@ import { Cloud, Sun, Wind, Gauge, Sunrise, Sunset } from 'lucide-react'
 import type { Coordinates } from '@/types'
 
 type Props = {
-    coordinates: Coordinates
+  coordinates: Coordinates
 }
 
-export default function AdditionalInfo({coordinates}: Props) {
+export default function AdditionalInfo({ coordinates }: Props) {
   const { data } = useSuspenseQuery({
     queryKey: ['weather', coordinates],
-    queryFn: () => getWeather({lat: coordinates.lat, lon: coordinates.lon})
+    queryFn: () => getWeather({ lat: coordinates.lat, lon: coordinates.lon })
   })
-  
+
   return (
-    <Card title="Additional Info" childrenClassName="flex flex-col gap-0">
-      {rows.map(({label, value, Icon}, index) => (
-        <div key={value} className={`flex justify-between items-center py-3.5 ${index !== rows.length - 1 ? 'border-b border-border/40' : ''}`}>
+    <Card title="Conditions" childrenClassName="flex flex-col gap-0">
+      {rows.map(({ label, value, Icon }, index) => (
+        <div
+          key={value}
+          className={`flex justify-between items-center py-3 ${
+            index !== rows.length - 1 ? 'border-b border-border/30' : ''
+          }`}
+        >
           <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center size-9 rounded-lg bg-accent">
-              <Icon className="size-5 text-accent-foreground" />
-            </div>
-            <span className="text-sm text-muted-foreground">{label}</span>
+            <Icon
+              className="size-4 text-muted-foreground/60 shrink-0"
+              strokeWidth={1.75}
+            />
+            <span className="text-sm font-500 text-muted-foreground">{label}</span>
           </div>
-          <span className="text-sm font-semibold text-card-foreground">
-            <FormatComponent 
+          <span className="text-sm font-600 text-card-foreground tabular-nums">
+            <FormatComponent
               field={value}
-              value={data.current[value as keyof typeof data.current] as number} 
+              value={data.current[value as keyof typeof data.current] as number}
             />
           </span>
         </div>
@@ -43,57 +45,31 @@ export default function AdditionalInfo({coordinates}: Props) {
   )
 }
 
-/**
- * FormatComponent – renders a value differently depending on the field:
- *  - sunrise/sunset → locale-formatted time string
- *  - wind_deg       → rotated Wind icon
- *  - everything else→ raw number
- */
-function FormatComponent({field, value}: {field: string, value: number}) {
-    if(field === 'sunrise' || field === 'sunset') {
-        return new Intl.DateTimeFormat("en-PH", {
-            hour: "numeric", 
-            minute: "2-digit",
-            hour12: true
-        }).format(value * 1000)
-    }
-
-    if(field === 'wind_deg') {
-        return <Wind className="size-5" style={{transform: `rotate(${value + 90}deg)`}} />
-    }
-    return value
+function FormatComponent({ field, value }: { field: string; value: number }) {
+  if (field === 'sunrise' || field === 'sunset') {
+    return new Intl.DateTimeFormat('en-PH', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    }).format(value * 1000)
+  }
+  if (field === 'wind_deg') {
+    return (
+      <Wind
+        className="size-4"
+        style={{ transform: `rotate(${value + 90}deg)` }}
+        strokeWidth={2}
+      />
+    )
+  }
+  return value
 }
 
-/** Configuration for each row displayed in the card (label, API field key, icon) */
 const rows = [
-    {
-      label: "Cloudiness (%)",
-      value: "clouds",
-      Icon: Cloud,
-    },
-    {
-      label: "UV Index",
-      value: "uvi",
-      Icon: Sun,
-    },
-    {
-      label: "Wind Direction",
-      value: "wind_deg",
-      Icon: Wind,
-    },
-    {
-      label: "Pressure (hPa)",
-      value: "pressure",
-      Icon: Gauge,
-    },
-    {
-      label: "Sunrise",
-      value: "sunrise",
-      Icon: Sunrise,
-    },
-    {
-      label: "Sunset",
-      value: "sunset",
-      Icon: Sunset,
-    },
+  { label: 'Cloudiness', value: 'clouds', Icon: Cloud },
+  { label: 'UV Index', value: 'uvi', Icon: Sun },
+  { label: 'Wind Direction', value: 'wind_deg', Icon: Wind },
+  { label: 'Pressure (hPa)', value: 'pressure', Icon: Gauge },
+  { label: 'Sunrise', value: 'sunrise', Icon: Sunrise },
+  { label: 'Sunset', value: 'sunset', Icon: Sunset },
 ] as const

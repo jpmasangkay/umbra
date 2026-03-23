@@ -1,12 +1,5 @@
 /**
- * App – root component that orchestrates the entire weather dashboard.
- *
- * Responsibilities:
- *  - Holds the top-level state (selected location, map type, side-panel toggle).
- *  - Resolves the active coordinates from either a map click or a geocode search.
- *  - Renders the responsive header (location search, map type picker, theme & menu).
- *  - Lays out the main content grid with Suspense boundaries + skeleton fallbacks.
- *  - Renders the air-pollution SidePanel (always visible on desktop, slide-in on mobile).
+ * App – root layout. Header stripped to just controls + theme toggle.
  */
 import DailyForecast from "./features/weather/components/DailyForecast"
 import { useState, useMemo, Suspense, lazy } from "react"
@@ -29,39 +22,29 @@ import { Menu } from "lucide-react"
 import ThemeToggle from "./features/theme/ThemeToggle"
 
 function App() {
-  // Coordinates set by clicking on the map (takes priority over geocode)
   const [manualCoords, setManualCoords] = useState<Coordinates | null>(null)
-  // Text location typed into the search bar
   const [location, setLocation] = useState('')
-  // Currently selected weather overlay layer for the map
   const [mapType, setMapType] = useState('clouds_new')
-  // Controls the mobile slide-in side panel visibility
   const [sidePanelOpen, setSidePanelOpen] = useState(false)
 
-  // Convert the text location to coordinates via the Geocoding API.
-  // keepPreviousData avoids a flash of empty state when the query key changes.
-  const {data: geocodeData} = useQuery({
+  const { data: geocodeData } = useQuery({
     queryKey: ['geocode', location],
     queryFn: () => getGeocode(location),
     enabled: !!location && location !== 'cityName',
     placeholderData: keepPreviousData
-  }) as { data: Array<{name: string; lat: number; lon: number; country: string}> | undefined }
-  
-  // Derive the active coordinates with a clear priority:
-  // 1. Manual map click  2. Geocode result  3. Default (London)
+  }) as { data: Array<{ name: string; lat: number; lon: number; country: string }> | undefined }
+
   const coordinates = useMemo(() => {
     if (manualCoords) return manualCoords
     if (geocodeData?.[0]) return { lat: geocodeData[0].lat, lon: geocodeData[0].lon }
-    return { lat: 51.5074, lon: -0.1278 } // Fallback: London
+    return { lat: 51.5074, lon: -0.1278 }
   }, [manualCoords, geocodeData])
-  
-  /** When the user clicks the map, store those coordinates and reset the text input. */
+
   const onMapClick = (lat: number, lon: number) => {
     setManualCoords({ lat, lon })
     setLocation('cityName')
   }
-  
-  /** When the user types a new location, clear the manual coords so geocode takes over. */
+
   const handleLocationChange = (value: string | ((prev: string) => string)) => {
     setManualCoords(null)
     setLocation(value)
@@ -69,40 +52,50 @@ function App() {
 
   return (
     <>
-      <div className="flex flex-col gap-5 px-4 pb-6 pt-4 lg:mr-90">
-        {/* Header bar */}
-        <header className="flex flex-col gap-3">
-          <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-            <div className="flex items-center gap-1 self-end sm:self-auto sm:order-last sm:ml-auto">
+      <div className="relative z-10 flex flex-col gap-5 px-4 pb-8 pt-5 lg:mr-90">
+
+        {/* ── Header ── */}
+        <header>
+          <div className="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+            {/* Controls */}
+            <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
+              <div className="flex items-center gap-2">
+                <label className="text-[10px] font-500 uppercase tracking-[0.12em] text-muted-foreground/60 shrink-0">
+                  Location
+                </label>
+                <LocationSearch key={location} location={location} setLocation={handleLocationChange} />
+              </div>
+              <div className="flex items-center gap-2">
+                <label className="text-[10px] font-500 uppercase tracking-[0.12em] text-muted-foreground/60 shrink-0">
+                  Overlay
+                </label>
+                <MapTypeDropdown mapType={mapType} setMapType={setMapType} />
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="flex items-center gap-1 self-end sm:self-auto">
               <ThemeToggle />
               <button
                 onClick={() => setSidePanelOpen(true)}
-                className="p-2 rounded-lg hover:bg-accent transition-colors cursor-pointer lg:hidden"
-                aria-label="Open air pollution panel"
+                className="p-2 rounded-xl hover:bg-accent transition-colors cursor-pointer lg:hidden"
+                aria-label="Open air quality panel"
               >
-                <Menu className="size-5" />
+                <Menu className="size-4" />
               </button>
-            </div>
-            <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2 w-full sm:w-auto">
-              <label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Location</label>
-              <LocationSearch key={location} location={location} setLocation={handleLocationChange}/>
-            </div>
-            <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2 w-full sm:w-auto">
-              <label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Map Type</label>
-              <MapTypeDropdown mapType={mapType} setMapType={setMapType}/>
             </div>
           </div>
         </header>
-      
-        {/* Map */}
-        <div className="relative rounded-2xl overflow-hidden border border-border/50 shadow-sm">
-          <Suspense fallback={<div className="h-100 w-full bg-muted animate-pulse" />}>
-            <Map coordinates={coordinates} onMapClick={onMapClick} mapType={mapType}/>
+
+        {/* ── Map ── */}
+        <div className="relative rounded-2xl overflow-hidden border border-border/50 shadow-md">
+          <Suspense fallback={<div className="h-100 w-full bg-muted/40 animate-pulse rounded-2xl" />}>
+            <Map coordinates={coordinates} onMapClick={onMapClick} mapType={mapType} />
           </Suspense>
           <MapLegend mapType={mapType} />
         </div>
 
-        {/* Weather cards grid */}
+        {/* ── Weather Cards ── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <Suspense fallback={<CurrentSkeleton />}>
             <CurrentWeather coordinates={coordinates} />
@@ -111,13 +104,16 @@ function App() {
             <AdditionalInfo coordinates={coordinates} />
           </Suspense>
         </div>
+
         <Suspense fallback={<HourlySkeleton />}>
           <HourlyForecast coordinates={coordinates} />
         </Suspense>
+
         <Suspense fallback={<DailySkeleton />}>
           <DailyForecast coordinates={coordinates} />
         </Suspense>
       </div>
+
       <SidePanel coordinates={coordinates} open={sidePanelOpen} onClose={() => setSidePanelOpen(false)} />
     </>
   )

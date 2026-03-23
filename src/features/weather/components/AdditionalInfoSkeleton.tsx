@@ -1,28 +1,23 @@
-/**
- * AdditionalInfoSkeleton – loading placeholder for the AdditionalInfo card.
- * Renders 6 rows with icon + label placeholders to match the real layout.
- */
-import Card from '@/components/Card'
 import { Skeleton } from '@/components/ui/skeleton'
 
-/** Number of info rows (cloudiness, UV, wind dir, pressure, sunrise, sunset) */
-const INFO_ROW_COUNT = 6
-
 export default function AdditionalInfoSkeleton() {
-	return (
-		<Card
-			title="Additional Info"
-			childrenClassName="flex flex-col gap-0"
-		>
-			{Array.from({ length: INFO_ROW_COUNT }).map((_, index) => (
-				<div key={index} className={`flex justify-between items-center py-3.5 ${index !== INFO_ROW_COUNT - 1 ? 'border-b border-border/40' : ''}`}>
-					<div className="flex items-center gap-3">
-						<Skeleton className="size-9 rounded-lg" />
-						<Skeleton className="h-4 w-28" />
-					</div>
-					<Skeleton className="h-4 w-20" />
-				</div>
-			))}
-		</Card>
-	)
+  return (
+    <div className="flex flex-col gap-5 p-5 rounded-2xl bg-card border border-border/60">
+      <div className="flex items-center gap-2.5">
+        <Skeleton className="w-1 h-4 rounded-full" />
+        <Skeleton className="h-3 w-24 rounded-md" />
+      </div>
+      <div className="flex flex-col gap-0">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className={`flex justify-between items-center py-3 ${i < 5 ? 'border-b border-border/30' : ''}`}>
+            <div className="flex items-center gap-3">
+              <Skeleton className="size-4 rounded-md" />
+              <Skeleton className="h-3.5 w-28 rounded-md" />
+            </div>
+            <Skeleton className="h-3.5 w-16 rounded-md" />
+          </div>
+        ))}
+      </div>
+    </div>
+  )
 }

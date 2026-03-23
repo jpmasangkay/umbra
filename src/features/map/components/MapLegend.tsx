@@ -1,124 +1,110 @@
 /**
- * MapLegend – colour-gradient legend overlaid in the top-right corner
- * of the map.  Shows the min/max values and unit for the currently
- * selected weather layer (clouds, precipitation, wind, pressure, temp).
+ * MapLegend – refined overlay legend positioned top-right of the map.
  */
 type Props = {
-    mapType: string
+  mapType: string
 }
 
-export default function MapLegend({mapType}: Props) {
-const data = mapTypeData[mapType]
-
-const maxDataValue = data.stops[data.stops.length - 1].value
-
-const dataGradiantStops = data.stops.map(stop => `${stop.color} ${(stop.value / maxDataValue) * 100}%`).join(', ')
+export default function MapLegend({ mapType }: Props) {
+  const data = mapTypeData[mapType]
+  const maxDataValue = data.stops[data.stops.length - 1].value
+  const dataGradientStops = data.stops
+    .map(stop => `${stop.color} ${(stop.value / maxDataValue) * 100}%`)
+    .join(', ')
 
   return (
-    <div className='absolute top-4 right-4 z-1000 w-72 sm:w-80 rounded-xl p-3 bg-background/80 backdrop-blur-sm border border-border/50 shadow-sm flex flex-col gap-2'>
-        <h3 className='text-xs font-semibold text-foreground tracking-wide'>{data.title}</h3>
-        <div className='w-full h-4 rounded-lg'
-        style={{
-          background: `linear-gradient(to right, ${dataGradiantStops})`
-        }}/>
-        <div className='flex justify-between text-[10px] text-muted-foreground tabular-nums'>
-            <span>{data.stops[0].value} {data.unit}</span>
-            <span>{data.stops[data.stops.length - 1].value} {data.unit}</span>
-        </div>
+    <div className="absolute top-3 right-3 z-[1000] w-64 sm:w-72 rounded-xl p-3 bg-background/85 backdrop-blur-md border border-border/50 shadow-md flex flex-col gap-2">
+      <p className="text-[10px] font-700 uppercase tracking-[0.12em] text-muted-foreground">
+        {data.title}
+      </p>
+      <div
+        className="w-full h-1.5 rounded-full"
+        style={{ background: `linear-gradient(to right, ${dataGradientStops})` }}
+      />
+      <div className="flex justify-between text-[10px] text-muted-foreground/60 tabular-nums font-500">
+        <span>{data.stops[0].value} {data.unit}</span>
+        <span>{data.stops[data.stops.length - 1].value} {data.unit}</span>
+      </div>
     </div>
-  ) 
+  )
 }
 
-/**
- * Colour-stop data for each OpenWeatherMap tile layer.
- * Each entry defines title, unit and an array of colour stops
- * used to build the CSS linear-gradient for the legend bar.
- */
-const mapTypeData: Record<
-  string,
-  { title: string; unit: string; stops: ColorStop[] }
-> = {
-  "clouds_new": {
-    title: "Classic clouds (0-100%)",
-    unit: "%",
+const mapTypeData: Record<string, { title: string; unit: string; stops: ColorStop[] }> = {
+  clouds_new: {
+    title: 'Cloud Cover',
+    unit: '%',
     stops: [
-      { value: 0, color: "rgba(255, 255, 255, 0.0)" },
-      { value: 10, color: "rgba(253, 253, 255, 0.1)" },
-      { value: 20, color: "rgba(252, 251, 255, 0.2)" },
-      { value: 30, color: "rgba(250, 250, 255, 0.3)" },
-      { value: 40, color: "rgba(249, 248, 255, 0.4)" },
-      { value: 50, color: "rgba(247, 247, 255, 0.5)" },
-      { value: 60, color: "rgba(246, 245, 255, 0.75)" },
-      { value: 70, color: "rgba(244, 244, 255, 1)" },
-      { value: 80, color: "rgba(243, 242, 255, 1)" },
-      { value: 90, color: "rgba(242, 241, 255, 1)" },
-      { value: 100, color: "rgba(240, 240, 255, 1)" },
+      { value: 0, color: 'rgba(255,255,255,0)' },
+      { value: 10, color: 'rgba(253,253,255,0.1)' },
+      { value: 20, color: 'rgba(252,251,255,0.2)' },
+      { value: 30, color: 'rgba(250,250,255,0.3)' },
+      { value: 40, color: 'rgba(249,248,255,0.4)' },
+      { value: 50, color: 'rgba(247,247,255,0.5)' },
+      { value: 60, color: 'rgba(246,245,255,0.75)' },
+      { value: 70, color: 'rgba(244,244,255,1)' },
+      { value: 80, color: 'rgba(243,242,255,1)' },
+      { value: 90, color: 'rgba(242,241,255,1)' },
+      { value: 100, color: 'rgba(240,240,255,1)' },
     ],
   },
-  "precipitation_new": {
-    title: "Rain (mm)",
-    unit: "mm",
+  precipitation_new: {
+    title: 'Precipitation',
+    unit: 'mm',
     stops: [
-      { value: 0, color: "rgba(225, 200, 100, 0)" },
-      { value: 0.1, color: "rgba(200, 150, 150, 0)" },
-      { value: 0.2, color: "rgba(150, 150, 170, 0)" },
-      { value: 0.5, color: "rgba(120, 120, 190, 0)" },
-      { value: 1, color: "rgba(110, 110, 205, 0.3)" },
-      { value: 10, color: "rgba(80, 80, 225, 0.7)" },
-      { value: 140, color: "rgba(20, 20, 255, 0.9)" },
+      { value: 0, color: 'rgba(225,200,100,0)' },
+      { value: 0.1, color: 'rgba(200,150,150,0)' },
+      { value: 0.5, color: 'rgba(120,120,190,0)' },
+      { value: 1, color: 'rgba(110,110,205,0.3)' },
+      { value: 10, color: 'rgba(80,80,225,0.7)' },
+      { value: 140, color: 'rgba(20,20,255,0.9)' },
     ],
   },
-  "wind_new": {
-    title: "Wind (m/s)",
-    unit: "m/s",
+  wind_new: {
+    title: 'Wind Speed',
+    unit: 'm/s',
     stops: [
-      { value: 1, color: "rgba(255, 255, 255, 0)" },
-      { value: 5, color: "rgba(238, 206, 206, 0.4)" },
-      { value: 15, color: "rgba(179, 100, 188, 0.7)" },
-      { value: 25, color: "rgba(63, 33, 59, 0.8)" },
-      { value: 50, color: "rgba(116, 76, 172, 0.9)" },
-      { value: 100, color: "rgba(70, 0, 175, 1)" },
-      { value: 200, color: "rgba(13, 17, 38, 1)" },
+      { value: 1, color: 'rgba(255,255,255,0)' },
+      { value: 5, color: 'rgba(238,206,206,0.4)' },
+      { value: 15, color: 'rgba(179,100,188,0.7)' },
+      { value: 25, color: 'rgba(63,33,59,0.8)' },
+      { value: 50, color: 'rgba(116,76,172,0.9)' },
+      { value: 100, color: 'rgba(70,0,175,1)' },
+      { value: 200, color: 'rgba(13,17,38,1)' },
     ],
   },
-  "pressure_new": {
-    title: "Pressure (Pa)",
-    unit: "Pa",
+  pressure_new: {
+    title: 'Atmospheric Pressure',
+    unit: 'Pa',
     stops: [
-      { value: 94000, color: "rgba(0, 115, 255, 1)" },
-      { value: 96000, color: "rgba(0, 170, 255, 1)" },
-      { value: 98000, color: "rgba(75, 208, 214, 1)" },
-      { value: 100000, color: "rgba(141, 231, 199, 1)" },
-      { value: 101000, color: "rgba(176, 247, 32, 1)" },
-      { value: 102000, color: "rgba(240, 184, 0, 1)" },
-      { value: 104000, color: "rgba(251, 85, 21, 1)" },
-      { value: 106000, color: "rgba(243, 54, 59, 1)" },
-      { value: 108000, color: "rgba(198, 0, 0, 1)" },
+      { value: 94000, color: 'rgba(0,115,255,1)' },
+      { value: 96000, color: 'rgba(0,170,255,1)' },
+      { value: 98000, color: 'rgba(75,208,214,1)' },
+      { value: 100000, color: 'rgba(141,231,199,1)' },
+      { value: 101000, color: 'rgba(176,247,32,1)' },
+      { value: 102000, color: 'rgba(240,184,0,1)' },
+      { value: 104000, color: 'rgba(251,85,21,1)' },
+      { value: 106000, color: 'rgba(243,54,59,1)' },
+      { value: 108000, color: 'rgba(198,0,0,1)' },
     ],
   },
-  "temp_new": {
-    title: "Temperature (°C)",
-    unit: "°C",
+  temp_new: {
+    title: 'Temperature',
+    unit: '°C',
     stops: [
-      { value: -65, color: "rgba(130, 22, 146, 1)" },
-      { value: -55, color: "rgba(130, 22, 146, 1)" },
-      { value: -45, color: "rgba(130, 22, 146, 1)" },
-      { value: -40, color: "rgba(130, 22, 146, 1)" },
-      { value: -30, color: "rgba(130, 87, 219, 1)" },
-      { value: -20, color: "rgba(32, 140, 236, 1)" },
-      { value: -10, color: "rgba(32, 196, 232, 1)" },
-      { value: 0, color: "rgba(35, 221, 221, 1)" },
-      { value: 10, color: "rgba(194, 255, 40, 1)" },
-      { value: 20, color: "rgba(255, 240, 40, 1)" },
-      { value: 25, color: "rgba(255, 194, 40, 1)" },
-      { value: 30, color: "rgba(252, 128, 20, 1)" },
+      { value: -65, color: 'rgba(130,22,146,1)' },
+      { value: -30, color: 'rgba(130,87,219,1)' },
+      { value: -20, color: 'rgba(32,140,236,1)' },
+      { value: -10, color: 'rgba(32,196,232,1)' },
+      { value: 0, color: 'rgba(35,221,221,1)' },
+      { value: 10, color: 'rgba(194,255,40,1)' },
+      { value: 20, color: 'rgba(255,240,40,1)' },
+      { value: 25, color: 'rgba(255,194,40,1)' },
+      { value: 30, color: 'rgba(252,128,20,1)' },
     ],
   },
-};
+}
 
-/** A single point in the legend's colour gradient */
 interface ColorStop {
-    value: number;
-    color: string;
-    opacity?: number;
+  value: number
+  color: string
 }

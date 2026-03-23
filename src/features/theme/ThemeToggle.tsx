@@ -1,42 +1,35 @@
 /**
- * ThemeToggle – button that switches between dark and light mode.
- *
- * Persists the chosen theme in localStorage and falls back to the
- * system's prefers-color-scheme on first visit.  Toggling adds / removes
- * the "dark" class on <html>, which Tailwind's dark variant relies on.
+ * ThemeToggle – minimal icon button for dark/light mode.
  */
-import { useState, useEffect } from "react";
-import { Sun, Moon } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useState, useEffect } from 'react'
+import { Sun, Moon } from 'lucide-react'
 
 export default function ThemeToggle() {
-  // Initialise from localStorage → system preference → default dark
   const [dark, setDark] = useState(() => {
-    if (typeof window === "undefined") return true;
-    const stored = localStorage.getItem("theme");
-    if (stored) return stored === "dark";
-    return window.matchMedia("(prefers-color-scheme: dark)").matches;
-  });
+    if (typeof window === 'undefined') return true
+    const stored = localStorage.getItem('theme')
+    if (stored) return stored === 'dark'
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
+  })
 
   useEffect(() => {
-    const root = document.documentElement;
+    const root = document.documentElement
     if (dark) {
-      root.classList.add("dark");
-      localStorage.setItem("theme", "dark");
+      root.classList.add('dark')
+      localStorage.setItem('theme', 'dark')
     } else {
-      root.classList.remove("dark");
-      localStorage.setItem("theme", "light");
+      root.classList.remove('dark')
+      localStorage.setItem('theme', 'light')
     }
-  }, [dark]);
+  }, [dark])
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      onClick={() => setDark((d) => !d)}
+    <button
+      onClick={() => setDark(d => !d)}
       aria-label="Toggle theme"
+      className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-accent border border-transparent hover:border-border/50 transition-all text-muted-foreground hover:text-foreground"
     >
-      {dark ? <Sun className="size-5" /> : <Moon className="size-5" />}
-    </Button>
-  );
+      {dark ? <Sun className="size-4" strokeWidth={2} /> : <Moon className="size-4" strokeWidth={2} />}
+    </button>
+  )
 }

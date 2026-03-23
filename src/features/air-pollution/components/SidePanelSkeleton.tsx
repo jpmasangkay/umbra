@@ -1,60 +1,47 @@
-/**
- * SidePanelSkeleton – loading placeholder for the air pollution SidePanel.
- * Mirrors the heading, AQI value, AQI label, and 8 pollutant cards
- * (each with a slider, min/max, and quality-level pills).
- */
-import Card from "@/components/Card";
-import { Skeleton } from "@/components/ui/skeleton";
-
-/** Number of pollutant card skeletons to render */
-const CARD_COUNT = 8;
+import { Skeleton } from '@/components/ui/skeleton'
 
 export default function SidePanelSkeleton() {
   return (
     <div className="flex flex-col gap-5">
-      {/* "Air Pollution" heading */}
-      <Skeleton className="h-7 w-36" />
-
-      {/* AQI large number + label */}
-      <div className="flex items-baseline gap-3">
-        <Skeleton className="h-12 w-14" />
-        <Skeleton className="h-5 w-10" />
+      <div className="flex items-center gap-2.5">
+        <Skeleton className="w-1 h-4 rounded-full" />
+        <Skeleton className="h-3 w-24 rounded-md" />
       </div>
-
+      {/* AQI hero glass card skeleton */}
+      <div className="rounded-2xl border border-border/50 p-5 flex flex-col gap-3">
+        <Skeleton className="h-2.5 w-28 rounded-md" />
+        <div className="flex items-baseline gap-2">
+          <Skeleton className="h-14 w-12 rounded-xl" />
+          <Skeleton className="h-4 w-16 rounded-md" />
+        </div>
+        <div className="flex gap-1">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Skeleton key={i} className="flex-1 h-1 rounded-full" />
+          ))}
+        </div>
+      </div>
       {/* Pollutant cards */}
-      {Array.from({ length: CARD_COUNT }).map((_, i) => (
-        <Card
-          key={i}
-          title=""
-          childrenClassName="flex flex-col gap-2"
-          className="gap-0! p-4"
-        >
-          {/* Name + value row */}
+      {Array.from({ length: 8 }).map((_, i) => (
+        <div key={i} className="flex flex-col gap-2.5 p-4 rounded-xl border border-border/50">
           <div className="flex justify-between">
             <div className="flex items-center gap-2">
-              <Skeleton className="h-5 w-16" />
-              <Skeleton className="size-3.5 rounded-full" />
+              <Skeleton className="h-4 w-12 rounded-md" />
+              <Skeleton className="size-3 rounded-full" />
             </div>
-            <Skeleton className="h-5 w-24" />
+            <Skeleton className="h-4 w-20 rounded-md" />
           </div>
-
-          {/* Slider */}
-          <Skeleton className="h-2 w-full rounded-full" />
-
-          {/* Min / max labels */}
+          <Skeleton className="h-1.5 w-full rounded-full" />
           <div className="flex justify-between">
-            <Skeleton className="h-3 w-4" />
-            <Skeleton className="h-3 w-8" />
+            <Skeleton className="h-2.5 w-4 rounded-md" />
+            <Skeleton className="h-2.5 w-8 rounded-md" />
           </div>
-
-          {/* Quality level pills */}
-          <div className="flex justify-between">
+          <div className="flex gap-1">
             {Array.from({ length: 5 }).map((_, j) => (
-              <Skeleton key={j} className="h-5 w-12 rounded" />
+              <Skeleton key={j} className="flex-1 h-5 rounded-md" />
             ))}
           </div>
-        </Card>
+        </div>
       ))}
     </div>
-  );
+  )
 }

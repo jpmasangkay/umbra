@@ -51,7 +51,8 @@ export default function Map({ coordinates, onMapClick, mapType }: Props) {
                 <ChangeView center={[lat, lon]} />
                 <MapClick onMapClick={onMapClick} coords={coordinates} />
                 <MapTileLayer />
-                <TileLayer 
+                <TileLayer
+                    key={mapType}
                     url={`https://tile.openweathermap.org/map/${mapType}/{z}/{x}/{y}.png?appid=${API_KEY}`}
                     opacity={0.6}
                 />

@@ -1,29 +1,41 @@
 /**
- * Card – reusable wrapper used by every dashboard card.
- * Applies a gradient background (light & dark mode), rounded corners,
- * a shadow, and a subtle fade-in animation to its children.
+ * Card – base card shell used throughout the dashboard.
+ * Clean dark surface with optional label style for titles.
  */
 import React from 'react'
 import { cn } from '@/lib/utils'
 
 type Props = {
-    children: React.ReactNode
-    /** Card heading displayed at the top */
-    title: string
-    /** Extra classes applied to the inner content wrapper */
-    childrenClassName?: string
-    /** Extra classes applied to the outer card container */
-    className?: string
+  children: React.ReactNode
+  title: string
+  childrenClassName?: string
+  className?: string
 }
 
-export default function Card({children, title, childrenClassName, className}: Props) {
+export default function Card({ children, title, childrenClassName, className }: Props) {
   return (
-    <div className={cn("flex flex-col gap-4 p-5 rounded-2xl bg-card border border-border/50 shadow-sm overflow-hidden", className)}>
-      {title && <h2 className="text-lg font-semibold tracking-tight text-card-foreground">{title}</h2>}
-        {/* Content wrapper with a 2-second fade-in animation */}
-        <div className={cn("flex-1", childrenClassName, "animate-[fade-in_2s_ease-out_forwards]")}>
-          {children}
+    <div
+      className={cn(
+        'flex flex-col gap-5 p-5 rounded-2xl bg-card border border-border/60 shadow-sm overflow-hidden',
+        className
+      )}
+    >
+      {title && (
+        <div className="flex items-center gap-2.5">
+          <span className="w-1 h-4 rounded-full bg-muted-foreground/30 shrink-0" />
+          <h2 className="text-xs font-700 uppercase tracking-[0.12em] text-muted-foreground">
+            {title}
+          </h2>
         </div>
+      )}
+      <div
+        className={cn(
+          'flex-1 animate-[fade-up_0.5s_cubic-bezier(0.16,1,0.3,1)_both]',
+          childrenClassName
+        )}
+      >
+        {children}
+      </div>
     </div>
   )
 }

@@ -1,42 +1,32 @@
-/**
- * CurrentSkeleton – loading placeholder that mirrors the layout of
- * CurrentWeather.tsx.  Shown inside a <Suspense> boundary while the
- * weather API call is in flight.
- */
-import Card from '@/components/Card'
 import { Skeleton } from '@/components/ui/skeleton'
 
 export default function CurrentSkeleton() {
   return (
-    <Card
-      title="Current Weather"
-      childrenClassName="flex flex-col items-center gap-6"
-    >
-      <div className="flex flex-col gap-1 items-center">
-        <Skeleton className="size-16 rounded-full" /> 
-        <Skeleton className="h-12 w-32" /> 
-        <Skeleton className="h-5 w-40 mt-1" />
+    <div className="glass rounded-2xl p-5 flex flex-col gap-5 h-full">
+      <div className="flex items-center gap-2.5">
+        <Skeleton className="w-1 h-4 rounded-full" />
+        <Skeleton className="h-3 w-32 rounded-md" />
       </div>
-
-      <div className="flex flex-col gap-1 items-center">
-        <p className="text-sm text-muted-foreground uppercase tracking-wider">Local Time</p>
-        <Skeleton className="h-9 w-36" />
-      </div>
-
-      <div className="flex justify-between w-full pt-4 border-t border-border/50">
-        <div className="flex flex-col gap-1 items-center flex-1">
-          <p className="text-xs text-muted-foreground uppercase tracking-wider">Feels Like</p>
-          <Skeleton className="h-6 w-14" />
+      <div className="flex items-start justify-between gap-4 flex-1">
+        <div className="flex flex-col gap-3">
+          <Skeleton className="h-20 w-40 rounded-xl" />
+          <Skeleton className="h-4 w-28 rounded-md" />
         </div>
-        <div className="flex flex-col gap-1 items-center flex-1 border-x border-border/50">
-          <p className="text-xs text-muted-foreground uppercase tracking-wider">Humidity</p>
-          <Skeleton className="h-6 w-14" />
-        </div>
-        <div className="flex flex-col gap-1 items-center flex-1">
-          <p className="text-xs text-muted-foreground uppercase tracking-wider">Wind</p>
-          <Skeleton className="h-6 w-14" />
+        <div className="flex flex-col items-end gap-3">
+          <Skeleton className="h-14 w-14 rounded-xl" />
+          <Skeleton className="h-5 w-20 rounded-md" />
+          <Skeleton className="h-3 w-24 rounded-md" />
         </div>
       </div>
-    </Card>
+      <div className="h-px bg-border/50" />
+      <div className="grid grid-cols-3 gap-3">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <div key={i} className="flex flex-col items-center gap-1.5">
+            <Skeleton className="h-2.5 w-12 rounded-md" />
+            <Skeleton className="h-6 w-10 rounded-md" />
+          </div>
+        ))}
+      </div>
+    </div>
   )
 }
