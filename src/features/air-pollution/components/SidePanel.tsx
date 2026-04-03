@@ -1,6 +1,6 @@
 /**
  * SidePanel – fixed right panel with air quality data.
- * Glassmorphism applied to the AQI header section only.
+ * Neumorphic raised surfaces throughout.
  */
 import { getAirPollution } from '../api'
 import { useSuspenseQuery } from '@tanstack/react-query'
@@ -24,9 +24,10 @@ type Props = {
 export default function SidePanel({ coordinates, open, onClose }: SidePanelProps) {
   return (
     <div
-      className={`fixed top-0 right-0 z-[1001] h-screen w-90 bg-sidebar border-l border-border/50 py-6 px-5 overflow-y-auto transition-transform duration-300 ease-in-out lg:translate-x-0 ${
+      className={`fixed top-0 right-0 z-[1001] h-screen w-90 bg-sidebar py-6 px-5 overflow-y-auto transition-transform duration-300 ease-in-out lg:translate-x-0 ${
         open ? 'translate-x-0' : 'translate-x-full'
       }`}
+      style={{ boxShadow: open ? 'var(--neu-shadow-xl)' : 'none' }}
     >
       <Suspense fallback={<SidePanelSkeleton />}>
         <AirPollution coordinates={coordinates} onClose={onClose} />
@@ -59,21 +60,21 @@ function AirPollution({ coordinates, onClose }: Props & { onClose: () => void })
       <div className="flex items-center gap-3">
         <button
           onClick={onClose}
-          className="p-1.5 rounded-xl hover:bg-accent transition-colors cursor-pointer lg:hidden"
+          className="p-1.5 rounded-xl transition-all cursor-pointer lg:hidden neu-button"
           aria-label="Close side panel"
         >
           <ArrowLeft className="size-4" />
         </button>
         <div className="flex items-center gap-2.5">
-          <span className="w-1 h-4 rounded-full bg-muted-foreground/30 shrink-0" />
+          <span className="w-1.5 h-4 rounded-full shrink-0 neu-inset-sm" />
           <h1 className="text-xs font-700 uppercase tracking-[0.12em] text-muted-foreground">
             Air Quality
           </h1>
         </div>
       </div>
 
-      {/* AQI hero – glass treatment */}
-      <div className="glass rounded-2xl p-5 flex flex-col gap-3">
+      {/* AQI hero – neumorphic raised */}
+      <div className="neu-card rounded-2xl p-5 flex flex-col gap-3">
         <div className="flex items-end justify-between">
           <div>
             <p className="text-[10px] font-600 uppercase tracking-[0.12em] text-muted-foreground/70 mb-1">
@@ -99,18 +100,18 @@ function AirPollution({ coordinates, onClose }: Props & { onClose: () => void })
         </div>
 
         {/* AQI step indicator */}
-        <div className="flex gap-1">
+        <div className="flex gap-1.5 p-2 rounded-xl neu-inset-sm">
           {[1, 2, 3, 4, 5].map(level => (
             <div
               key={level}
-              className={`flex-1 h-1 rounded-full transition-all ${
+              className={`flex-1 h-1.5 rounded-full transition-all ${
                 level <= aqi
                   ? level === 1 ? 'bg-green-500'
                   : level === 2 ? 'bg-yellow-500'
                   : level === 3 ? 'bg-orange-400'
                   : level === 4 ? 'bg-red-400'
                   : 'bg-red-600'
-                  : 'bg-border/50'
+                  : 'bg-muted-foreground/15'
               }`}
             />
           ))}
@@ -127,7 +128,7 @@ function AirPollution({ coordinates, onClose }: Props & { onClose: () => void })
           return (
             <div
               key={key}
-              className="flex flex-col gap-2.5 p-4 rounded-xl bg-card border border-border/50"
+              className="flex flex-col gap-2.5 p-4 rounded-xl neu-raised-sm"
             >
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-2">
@@ -156,15 +157,16 @@ function AirPollution({ coordinates, onClose }: Props & { onClose: () => void })
                 <span>{max}</span>
               </div>
 
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1.5">
                 {qualityLevels.map(level => (
                   <span
                     key={level}
-                    className={`py-1 rounded-md text-center flex-1 text-[9px] font-700 uppercase tracking-wide leading-none whitespace-nowrap transition-all ${
+                    className={`py-1.5 rounded-lg text-center flex-1 text-[9px] font-700 uppercase tracking-wide leading-none whitespace-nowrap transition-all ${
                       quality === level
                         ? qualityColors[level] + ' text-white'
-                        : 'text-muted-foreground/40 bg-muted/40'
+                        : 'text-muted-foreground/40 neu-inset-sm'
                     }`}
+                    style={quality === level ? { boxShadow: 'var(--neu-shadow-sm)' } : undefined}
                   >
                     {qualityLabels[level]}
                   </span>

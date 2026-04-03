@@ -1,5 +1,5 @@
 /**
- * App – root layout. Header stripped to just controls + theme toggle.
+ * App – root layout with neumorphic design system.
  */
 import DailyForecast from "./features/weather/components/DailyForecast"
 import { useState, useMemo, Suspense, lazy } from "react"
@@ -74,11 +74,11 @@ function App() {
             </div>
 
             {/* Actions */}
-            <div className="flex items-center gap-1 self-end sm:self-auto">
+            <div className="flex items-center gap-2 self-end sm:self-auto">
               <ThemeToggle />
               <button
                 onClick={() => setSidePanelOpen(true)}
-                className="p-2 rounded-xl hover:bg-accent transition-colors cursor-pointer lg:hidden"
+                className="p-2 rounded-xl transition-all cursor-pointer lg:hidden neu-button"
                 aria-label="Open air quality panel"
               >
                 <Menu className="size-4" />
@@ -88,15 +88,15 @@ function App() {
         </header>
 
         {/* ── Map ── */}
-        <div className="relative rounded-2xl overflow-hidden border border-border/50 shadow-md">
-          <Suspense fallback={<div className="h-100 w-full bg-muted/40 animate-pulse rounded-2xl" />}>
+        <div className="relative rounded-2xl overflow-hidden neu-raised-lg">
+          <Suspense fallback={<div className="h-100 w-full animate-neu-pulse rounded-2xl" />}>
             <Map coordinates={coordinates} onMapClick={onMapClick} mapType={mapType} />
           </Suspense>
           <MapLegend mapType={mapType} />
         </div>
 
         {/* ── Weather Cards ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           <Suspense fallback={<CurrentSkeleton />}>
             <CurrentWeather coordinates={coordinates} />
           </Suspense>

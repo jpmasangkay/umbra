@@ -1,5 +1,5 @@
 /**
- * MapTypeDropdown – clean select for weather overlay layers.
+ * MapTypeDropdown – neumorphic select for weather overlay layers.
  */
 import type { Dispatch, SetStateAction } from 'react'
 import {
@@ -27,7 +27,7 @@ const types = [
 export default function MapTypeDropdown({ mapType, setMapType }: Props) {
   return (
     <Select value={mapType} onValueChange={value => setMapType(value)}>
-      <SelectTrigger className="w-full sm:w-44 h-9 text-sm font-500 rounded-xl border-border/70 relative z-[1000]">
+      <SelectTrigger className="w-full sm:w-44 h-9 text-sm font-500 rounded-xl relative z-[1000]">
         <SelectValue placeholder="Select overlay" />
       </SelectTrigger>
       <SelectContent position="popper" className="z-[1000] rounded-xl">

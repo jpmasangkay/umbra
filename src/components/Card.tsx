@@ -1,6 +1,6 @@
 /**
  * Card – base card shell used throughout the dashboard.
- * Clean dark surface with optional label style for titles.
+ * Neumorphic raised surface with soft shadow definition.
  */
 import React from 'react'
 import { cn } from '@/lib/utils'
@@ -16,13 +16,13 @@ export default function Card({ children, title, childrenClassName, className }: 
   return (
     <div
       className={cn(
-        'flex flex-col gap-5 p-5 rounded-2xl bg-card border border-border/60 shadow-sm overflow-hidden',
+        'flex flex-col gap-5 p-5 rounded-2xl overflow-hidden neu-card',
         className
       )}
     >
       {title && (
         <div className="flex items-center gap-2.5">
-          <span className="w-1 h-4 rounded-full bg-muted-foreground/30 shrink-0" />
+          <span className="w-1.5 h-4 rounded-full shrink-0 neu-inset-sm" />
           <h2 className="text-xs font-700 uppercase tracking-[0.12em] text-muted-foreground">
             {title}
           </h2>

@@ -1,5 +1,5 @@
 /**
- * MapLegend – refined overlay legend positioned top-right of the map.
+ * MapLegend – neumorphic overlay legend positioned top-right of the map.
  */
 type Props = {
   mapType: string
@@ -13,13 +13,25 @@ export default function MapLegend({ mapType }: Props) {
     .join(', ')
 
   return (
-    <div className="absolute top-3 right-3 z-[1000] w-64 sm:w-72 rounded-xl p-3 bg-background/85 backdrop-blur-md border border-border/50 shadow-md flex flex-col gap-2">
+    <div
+      className="absolute top-3 right-3 z-[1000] w-64 sm:w-72 rounded-xl p-3 flex flex-col gap-2"
+      style={{
+        background: 'var(--background)',
+        boxShadow: 'var(--neu-shadow)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        opacity: 0.95,
+      }}
+    >
       <p className="text-[10px] font-700 uppercase tracking-[0.12em] text-muted-foreground">
         {data.title}
       </p>
       <div
-        className="w-full h-1.5 rounded-full"
-        style={{ background: `linear-gradient(to right, ${dataGradientStops})` }}
+        className="w-full h-2 rounded-full"
+        style={{
+          background: `linear-gradient(to right, ${dataGradientStops})`,
+          boxShadow: 'var(--neu-inset-sm)',
+        }}
       />
       <div className="flex justify-between text-[10px] text-muted-foreground/60 tabular-nums font-500">
         <span>{data.stops[0].value} {data.unit}</span>

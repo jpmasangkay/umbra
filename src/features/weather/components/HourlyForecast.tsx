@@ -1,6 +1,6 @@
 /**
  * HourlyForecast – horizontally scrollable 48-hour outlook.
- * Each item shows time, icon and temperature in a clean pill.
+ * Each item is a neumorphic raised pill.
  */
 import { getWeather } from '../api'
 import type { Coordinates } from '@/types'
@@ -19,13 +19,13 @@ export default function HourlyForecast({ coordinates }: Props) {
   })
 
   return (
-    <Card title="Hourly Forecast" childrenClassName="overflow-hidden">
-      <div className="scroll-fade-x overflow-x-auto pb-1 -mx-1 px-1">
-        <div className="flex gap-2 w-max">
+    <Card title="Hourly Forecast" childrenClassName="overflow-hidden flex flex-col gap-0">
+      <div className="scroll-fade-x overflow-x-auto pb-2 -mx-1 px-1">
+        <div className="flex gap-4 w-max">
           {data.hourly.map((hour, i) => (
             <div
               key={hour.dt}
-              className="flex flex-col items-center gap-2 shrink-0 w-[72px] py-3 px-2 rounded-xl bg-accent/50 hover:bg-accent/80 transition-colors cursor-default"
+              className="flex flex-col items-center gap-2 shrink-0 w-[72px] py-3 px-2 rounded-xl neu-pill neu-interactive cursor-default"
               style={{ animationDelay: `${i * 0.02}s` }}
             >
               <p className="text-[10px] font-600 text-muted-foreground tabular-nums whitespace-nowrap">

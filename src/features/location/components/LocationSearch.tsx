@@ -1,5 +1,5 @@
 /**
- * LocationSearch – styled search input with MapPin icon.
+ * LocationSearch – neumorphic inset search input with MapPin icon.
  */
 import { useState, type Dispatch, type SetStateAction } from 'react'
 import { MapPin } from 'lucide-react'
@@ -38,7 +38,7 @@ export default function LocationSearch({ location, setLocation }: Props) {
           }
         }}
         placeholder="Search city..."
-        className="w-full h-9 pl-8 pr-3 text-sm font-500 bg-background border border-border/70 rounded-xl text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-ring/40 focus:border-ring/50 transition-all relative z-[1000]"
+        className="w-full h-9 pl-8 pr-3 text-sm font-500 bg-background rounded-xl text-foreground placeholder:text-muted-foreground/50 outline-none transition-[box-shadow] relative z-[1000] neu-input"
       />
     </div>
   )

@@ -1,5 +1,5 @@
 /**
- * AdditionalInfo – refined metric rows for secondary weather data.
+ * AdditionalInfo – refined metric rows with neumorphic styling.
  */
 import { useSuspenseQuery } from '@tanstack/react-query'
 import Card from '@/components/Card'
@@ -18,19 +18,19 @@ export default function AdditionalInfo({ coordinates }: Props) {
   })
 
   return (
-    <Card title="Conditions" childrenClassName="flex flex-col gap-0">
-      {rows.map(({ label, value, Icon }, index) => (
+    <Card title="Conditions" childrenClassName="flex flex-col gap-2">
+      {rows.map(({ label, value, Icon }) => (
         <div
           key={value}
-          className={`flex justify-between items-center py-3 ${
-            index !== rows.length - 1 ? 'border-b border-border/30' : ''
-          }`}
+          className="flex justify-between items-center py-2.5 px-3 rounded-xl neu-inset-sm"
         >
           <div className="flex items-center gap-3">
-            <Icon
-              className="size-4 text-muted-foreground/60 shrink-0"
-              strokeWidth={1.75}
-            />
+            <div className="size-7 rounded-lg flex items-center justify-center neu-raised-sm">
+              <Icon
+                className="size-3.5 text-muted-foreground/70 shrink-0"
+                strokeWidth={1.75}
+              />
+            </div>
             <span className="text-sm font-500 text-muted-foreground">{label}</span>
           </div>
           <span className="text-sm font-600 text-card-foreground tabular-nums">
